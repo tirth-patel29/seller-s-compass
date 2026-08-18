@@ -2,7 +2,7 @@
 @source "../src";
 @import "tw-animate-css";
 
-/* ExportSetu brand fonts */
+/* DNK brand fonts */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -176,3 +176,4 @@
     outline-offset: 2px;
   }
 }
+

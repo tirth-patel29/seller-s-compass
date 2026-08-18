@@ -28,13 +28,13 @@ export const Route = createFileRoute("/marketplace")({
   }),
   head: () => ({
     meta: [
-      { title: "Marketplace — Handmade Indian products for global buyers | ExportSetu" },
+      { title: "Marketplace — Handmade Indian products for global buyers | DNK" },
       {
         name: "description",
         content:
           "Browse verified Indian artisans and MSMEs. Handcrafted bags, handloom textiles, terracotta decor, wood craft, paintings and jewellery with international shipping.",
       },
-      { property: "og:title", content: "ExportSetu Marketplace" },
+      { property: "og:title", content: "DNK Marketplace" },
       { property: "og:description", content: "Handmade Indian products from verified sellers, shipped worldwide." },
     ],
   }),
@@ -212,3 +212,4 @@ function Marketplace() {
     </MarketplaceLayout>
   );
 }
+

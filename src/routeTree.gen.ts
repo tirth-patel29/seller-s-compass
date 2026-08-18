@@ -10,13 +10,93 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as BuyerRouteImport } from './routes/buyer'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as SellersRouteImport } from './routes/sellers'
+import { Route as VerifyAccountRouteImport } from './routes/verify-account'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
+import { Route as AdminDnkRouteImport } from './routes/admin.dnk'
+import { Route as AdminExportOrdersRouteImport } from './routes/admin.export-orders'
+import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
+import { Route as AdminProductsRouteImport } from './routes/admin.products'
+import { Route as AdminSellersRouteImport } from './routes/admin.sellers'
+import { Route as AdminShipmentsRouteImport } from './routes/admin.shipments'
+import { Route as BuyerAddressesRouteImport } from './routes/buyer.addresses'
+import { Route as BuyerDashboardRouteImport } from './routes/buyer.dashboard'
+import { Route as BuyerProfileRouteImport } from './routes/buyer.profile'
+import { Route as BuyerSettingsRouteImport } from './routes/buyer.settings'
+import { Route as BuyerWishlistRouteImport } from './routes/buyer.wishlist'
+import { Route as CategoriesIndexRouteImport } from './routes/categories.index'
+import { Route as CategoriesSlugRouteImport } from './routes/categories.$slug'
+import { Route as CheckoutRouteImport } from './routes/checkout.'
+import { Route as CheckoutIdRouteImport } from './routes/checkout.$id'
+import { Route as ProductRouteImport } from './routes/product.'
 import { Route as ProductIdRouteImport } from './routes/product.$id'
+import { Route as SellerRouteImport } from './routes/seller.'
+import { Route as SellerIdRouteImport } from './routes/seller.$id'
+import { Route as SellerDashboardRouteImport } from './routes/seller.dashboard'
+import { Route as SellerProfileRouteImport } from './routes/seller.profile'
+import { Route as SellerSettingsRouteImport } from './routes/seller.settings'
+import { Route as BuyerOrdersIndexRouteImport } from './routes/buyer.orders.index'
+import { Route as BuyerOrdersIdRouteImport } from './routes/buyer.orders.$id'
+import { Route as SellerOrdersIndexRouteImport } from './routes/seller.orders.index'
+import { Route as SellerOrdersIdRouteImport } from './routes/seller.orders.$id'
+import { Route as SellerProductsIndexRouteImport } from './routes/seller.products.index'
+import { Route as SellerProductsIdRouteImport } from './routes/seller.products.$id'
+import { Route as SellerProductsNewRouteImport } from './routes/seller.products.new'
+import { Route as SellerShipmentsIndexRouteImport } from './routes/seller.shipments.index'
+import { Route as SellerShipmentsIdRouteImport } from './routes/seller.shipments.$id'
+import { Route as SellerOrdersIdExportRouteImport } from './routes/seller.orders.$id.export'
+import { Route as SellerOrdersIdExportDocumentsRouteImport } from './routes/seller.orders.$id.export.documents'
+import { Route as SellerOrdersIdExportSubmitRouteImport } from './routes/seller.orders.$id.export.submit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuyerRoute = BuyerRouteImport.update({
+  id: '/buyer',
+  path: '/buyer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HowItWorksRoute = HowItWorksRouteImport.update({
+  id: '/how-it-works',
+  path: '/how-it-works',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -29,44 +109,544 @@ const MarketplaceRoute = MarketplaceRouteImport.update({
   path: '/marketplace',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellersRoute = SellersRouteImport.update({
+  id: '/sellers',
+  path: '/sellers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyAccountRoute = VerifyAccountRouteImport.update({
+  id: '/verify-account',
+  path: '/verify-account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDnkRoute = AdminDnkRouteImport.update({
+  id: '/dnk',
+  path: '/dnk',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminExportOrdersRoute = AdminExportOrdersRouteImport.update({
+  id: '/export-orders',
+  path: '/export-orders',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminOrdersRoute = AdminOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProductsRoute = AdminProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSellersRoute = AdminSellersRouteImport.update({
+  id: '/sellers',
+  path: '/sellers',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminShipmentsRoute = AdminShipmentsRouteImport.update({
+  id: '/shipments',
+  path: '/shipments',
+  getParentRoute: () => AdminRoute,
+} as any)
+const BuyerAddressesRoute = BuyerAddressesRouteImport.update({
+  id: '/addresses',
+  path: '/addresses',
+  getParentRoute: () => BuyerRoute,
+} as any)
+const BuyerDashboardRoute = BuyerDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => BuyerRoute,
+} as any)
+const BuyerProfileRoute = BuyerProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => BuyerRoute,
+} as any)
+const BuyerSettingsRoute = BuyerSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => BuyerRoute,
+} as any)
+const BuyerWishlistRoute = BuyerWishlistRouteImport.update({
+  id: '/wishlist',
+  path: '/wishlist',
+  getParentRoute: () => BuyerRoute,
+} as any)
+const CategoriesIndexRoute = CategoriesIndexRouteImport.update({
+  id: '/categories/',
+  path: '/categories/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategoriesSlugRoute = CategoriesSlugRouteImport.update({
+  id: '/categories/$slug',
+  path: '/categories/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout/',
+  path: '/checkout/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutIdRoute = CheckoutIdRouteImport.update({
+  id: '/checkout/$id',
+  path: '/checkout/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductRoute = ProductRouteImport.update({
+  id: '/product/',
+  path: '/product/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductIdRoute = ProductIdRouteImport.update({
   id: '/product/$id',
   path: '/product/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SellerRoute = SellerRouteImport.update({
+  id: '/seller/',
+  path: '/seller/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerIdRoute = SellerIdRouteImport.update({
+  id: '/seller/$id',
+  path: '/seller/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerDashboardRoute = SellerDashboardRouteImport.update({
+  id: '/seller/dashboard',
+  path: '/seller/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerProfileRoute = SellerProfileRouteImport.update({
+  id: '/seller/profile',
+  path: '/seller/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerSettingsRoute = SellerSettingsRouteImport.update({
+  id: '/seller/settings',
+  path: '/seller/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuyerOrdersIndexRoute = BuyerOrdersIndexRouteImport.update({
+  id: '/orders/',
+  path: '/orders/',
+  getParentRoute: () => BuyerRoute,
+} as any)
+const BuyerOrdersIdRoute = BuyerOrdersIdRouteImport.update({
+  id: '/orders/$id',
+  path: '/orders/$id',
+  getParentRoute: () => BuyerRoute,
+} as any)
+const SellerOrdersIndexRoute = SellerOrdersIndexRouteImport.update({
+  id: '/seller/orders/',
+  path: '/seller/orders/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerOrdersIdRoute = SellerOrdersIdRouteImport.update({
+  id: '/seller/orders/$id',
+  path: '/seller/orders/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerProductsIndexRoute = SellerProductsIndexRouteImport.update({
+  id: '/seller/products/',
+  path: '/seller/products/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerProductsIdRoute = SellerProductsIdRouteImport.update({
+  id: '/seller/products/$id',
+  path: '/seller/products/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerProductsNewRoute = SellerProductsNewRouteImport.update({
+  id: '/seller/products/new',
+  path: '/seller/products/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerShipmentsIndexRoute = SellerShipmentsIndexRouteImport.update({
+  id: '/seller/shipments/',
+  path: '/seller/shipments/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerShipmentsIdRoute = SellerShipmentsIdRouteImport.update({
+  id: '/seller/shipments/$id',
+  path: '/seller/shipments/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerOrdersIdExportRoute = SellerOrdersIdExportRouteImport.update({
+  id: '/export',
+  path: '/export',
+  getParentRoute: () => SellerOrdersIdRoute,
+} as any)
+const SellerOrdersIdExportDocumentsRoute =
+  SellerOrdersIdExportDocumentsRouteImport.update({
+    id: '/documents',
+    path: '/documents',
+    getParentRoute: () => SellerOrdersIdExportRoute,
+  } as any)
+const SellerOrdersIdExportSubmitRoute =
+  SellerOrdersIdExportSubmitRouteImport.update({
+    id: '/submit',
+    path: '/submit',
+    getParentRoute: () => SellerOrdersIdExportRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/buyer': typeof BuyerRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
   '/marketplace': typeof MarketplaceRoute
+  '/register': typeof RegisterRoute
+  '/sellers': typeof SellersRoute
+  '/verify-account': typeof VerifyAccountRoute
+  '/checkout/': typeof CheckoutRoute
+  '/product/': typeof ProductRoute
+  '/seller/': typeof SellerRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/dnk': typeof AdminDnkRoute
+  '/admin/export-orders': typeof AdminExportOrdersRoute
+  '/admin/orders': typeof AdminOrdersRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/sellers': typeof AdminSellersRoute
+  '/admin/shipments': typeof AdminShipmentsRoute
+  '/buyer/addresses': typeof BuyerAddressesRoute
+  '/buyer/dashboard': typeof BuyerDashboardRoute
+  '/buyer/profile': typeof BuyerProfileRoute
+  '/buyer/settings': typeof BuyerSettingsRoute
+  '/buyer/wishlist': typeof BuyerWishlistRoute
+  '/categories/$slug': typeof CategoriesSlugRoute
+  '/checkout/$id': typeof CheckoutIdRoute
   '/product/$id': typeof ProductIdRoute
+  '/seller/$id': typeof SellerIdRoute
+  '/seller/dashboard': typeof SellerDashboardRoute
+  '/seller/profile': typeof SellerProfileRoute
+  '/seller/settings': typeof SellerSettingsRoute
+  '/admin/': typeof AdminIndexRoute
+  '/categories/': typeof CategoriesIndexRoute
+  '/buyer/orders/$id': typeof BuyerOrdersIdRoute
+  '/seller/orders/$id': typeof SellerOrdersIdRouteWithChildren
+  '/seller/products/$id': typeof SellerProductsIdRoute
+  '/seller/products/new': typeof SellerProductsNewRoute
+  '/seller/shipments/$id': typeof SellerShipmentsIdRoute
+  '/buyer/orders/': typeof BuyerOrdersIndexRoute
+  '/seller/orders/': typeof SellerOrdersIndexRoute
+  '/seller/products/': typeof SellerProductsIndexRoute
+  '/seller/shipments/': typeof SellerShipmentsIndexRoute
+  '/seller/orders/$id/export': typeof SellerOrdersIdExportRouteWithChildren
+  '/seller/orders/$id/export/documents': typeof SellerOrdersIdExportDocumentsRoute
+  '/seller/orders/$id/export/submit': typeof SellerOrdersIdExportSubmitRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/buyer': typeof BuyerRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
   '/marketplace': typeof MarketplaceRoute
+  '/register': typeof RegisterRoute
+  '/sellers': typeof SellersRoute
+  '/verify-account': typeof VerifyAccountRoute
+  '/checkout': typeof CheckoutRoute
+  '/product': typeof ProductRoute
+  '/seller': typeof SellerRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/dnk': typeof AdminDnkRoute
+  '/admin/export-orders': typeof AdminExportOrdersRoute
+  '/admin/orders': typeof AdminOrdersRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/sellers': typeof AdminSellersRoute
+  '/admin/shipments': typeof AdminShipmentsRoute
+  '/buyer/addresses': typeof BuyerAddressesRoute
+  '/buyer/dashboard': typeof BuyerDashboardRoute
+  '/buyer/profile': typeof BuyerProfileRoute
+  '/buyer/settings': typeof BuyerSettingsRoute
+  '/buyer/wishlist': typeof BuyerWishlistRoute
+  '/categories/$slug': typeof CategoriesSlugRoute
+  '/checkout/$id': typeof CheckoutIdRoute
   '/product/$id': typeof ProductIdRoute
+  '/seller/$id': typeof SellerIdRoute
+  '/seller/dashboard': typeof SellerDashboardRoute
+  '/seller/profile': typeof SellerProfileRoute
+  '/seller/settings': typeof SellerSettingsRoute
+  '/admin': typeof AdminIndexRoute
+  '/categories': typeof CategoriesIndexRoute
+  '/buyer/orders/$id': typeof BuyerOrdersIdRoute
+  '/seller/orders/$id': typeof SellerOrdersIdRouteWithChildren
+  '/seller/products/$id': typeof SellerProductsIdRoute
+  '/seller/products/new': typeof SellerProductsNewRoute
+  '/seller/shipments/$id': typeof SellerShipmentsIdRoute
+  '/buyer/orders': typeof BuyerOrdersIndexRoute
+  '/seller/orders': typeof SellerOrdersIndexRoute
+  '/seller/products': typeof SellerProductsIndexRoute
+  '/seller/shipments': typeof SellerShipmentsIndexRoute
+  '/seller/orders/$id/export': typeof SellerOrdersIdExportRouteWithChildren
+  '/seller/orders/$id/export/documents': typeof SellerOrdersIdExportDocumentsRoute
+  '/seller/orders/$id/export/submit': typeof SellerOrdersIdExportSubmitRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/buyer': typeof BuyerRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/how-it-works': typeof HowItWorksRoute
   '/login': typeof LoginRoute
   '/marketplace': typeof MarketplaceRoute
+  '/register': typeof RegisterRoute
+  '/sellers': typeof SellersRoute
+  '/verify-account': typeof VerifyAccountRoute
+  '/checkout/': typeof CheckoutRoute
+  '/product/': typeof ProductRoute
+  '/seller/': typeof SellerRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/dnk': typeof AdminDnkRoute
+  '/admin/export-orders': typeof AdminExportOrdersRoute
+  '/admin/orders': typeof AdminOrdersRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/sellers': typeof AdminSellersRoute
+  '/admin/shipments': typeof AdminShipmentsRoute
+  '/buyer/addresses': typeof BuyerAddressesRoute
+  '/buyer/dashboard': typeof BuyerDashboardRoute
+  '/buyer/profile': typeof BuyerProfileRoute
+  '/buyer/settings': typeof BuyerSettingsRoute
+  '/buyer/wishlist': typeof BuyerWishlistRoute
+  '/categories/$slug': typeof CategoriesSlugRoute
+  '/checkout/$id': typeof CheckoutIdRoute
   '/product/$id': typeof ProductIdRoute
+  '/seller/$id': typeof SellerIdRoute
+  '/seller/dashboard': typeof SellerDashboardRoute
+  '/seller/profile': typeof SellerProfileRoute
+  '/seller/settings': typeof SellerSettingsRoute
+  '/admin/': typeof AdminIndexRoute
+  '/categories/': typeof CategoriesIndexRoute
+  '/buyer/orders/$id': typeof BuyerOrdersIdRoute
+  '/seller/orders/$id': typeof SellerOrdersIdRouteWithChildren
+  '/seller/products/$id': typeof SellerProductsIdRoute
+  '/seller/products/new': typeof SellerProductsNewRoute
+  '/seller/shipments/$id': typeof SellerShipmentsIdRoute
+  '/buyer/orders/': typeof BuyerOrdersIndexRoute
+  '/seller/orders/': typeof SellerOrdersIndexRoute
+  '/seller/products/': typeof SellerProductsIndexRoute
+  '/seller/shipments/': typeof SellerShipmentsIndexRoute
+  '/seller/orders/$id/export': typeof SellerOrdersIdExportRouteWithChildren
+  '/seller/orders/$id/export/documents': typeof SellerOrdersIdExportDocumentsRoute
+  '/seller/orders/$id/export/submit': typeof SellerOrdersIdExportSubmitRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/marketplace' | '/product/$id'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/buyer'
+    | '/contact'
+    | '/faq'
+    | '/forgot-password'
+    | '/how-it-works'
+    | '/login'
+    | '/marketplace'
+    | '/register'
+    | '/sellers'
+    | '/verify-account'
+    | '/checkout/'
+    | '/product/'
+    | '/seller/'
+    | '/admin/analytics'
+    | '/admin/dnk'
+    | '/admin/export-orders'
+    | '/admin/orders'
+    | '/admin/products'
+    | '/admin/sellers'
+    | '/admin/shipments'
+    | '/buyer/addresses'
+    | '/buyer/dashboard'
+    | '/buyer/profile'
+    | '/buyer/settings'
+    | '/buyer/wishlist'
+    | '/categories/$slug'
+    | '/checkout/$id'
+    | '/product/$id'
+    | '/seller/$id'
+    | '/seller/dashboard'
+    | '/seller/profile'
+    | '/seller/settings'
+    | '/admin/'
+    | '/categories/'
+    | '/buyer/orders/$id'
+    | '/seller/orders/$id'
+    | '/seller/products/$id'
+    | '/seller/products/new'
+    | '/seller/shipments/$id'
+    | '/buyer/orders/'
+    | '/seller/orders/'
+    | '/seller/products/'
+    | '/seller/shipments/'
+    | '/seller/orders/$id/export'
+    | '/seller/orders/$id/export/documents'
+    | '/seller/orders/$id/export/submit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/marketplace' | '/product/$id'
-  id: '__root__' | '/' | '/login' | '/marketplace' | '/product/$id'
+  to:
+    | '/'
+    | '/about'
+    | '/buyer'
+    | '/contact'
+    | '/faq'
+    | '/forgot-password'
+    | '/how-it-works'
+    | '/login'
+    | '/marketplace'
+    | '/register'
+    | '/sellers'
+    | '/verify-account'
+    | '/checkout'
+    | '/product'
+    | '/seller'
+    | '/admin/analytics'
+    | '/admin/dnk'
+    | '/admin/export-orders'
+    | '/admin/orders'
+    | '/admin/products'
+    | '/admin/sellers'
+    | '/admin/shipments'
+    | '/buyer/addresses'
+    | '/buyer/dashboard'
+    | '/buyer/profile'
+    | '/buyer/settings'
+    | '/buyer/wishlist'
+    | '/categories/$slug'
+    | '/checkout/$id'
+    | '/product/$id'
+    | '/seller/$id'
+    | '/seller/dashboard'
+    | '/seller/profile'
+    | '/seller/settings'
+    | '/admin'
+    | '/categories'
+    | '/buyer/orders/$id'
+    | '/seller/orders/$id'
+    | '/seller/products/$id'
+    | '/seller/products/new'
+    | '/seller/shipments/$id'
+    | '/buyer/orders'
+    | '/seller/orders'
+    | '/seller/products'
+    | '/seller/shipments'
+    | '/seller/orders/$id/export'
+    | '/seller/orders/$id/export/documents'
+    | '/seller/orders/$id/export/submit'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/buyer'
+    | '/contact'
+    | '/faq'
+    | '/forgot-password'
+    | '/how-it-works'
+    | '/login'
+    | '/marketplace'
+    | '/register'
+    | '/sellers'
+    | '/verify-account'
+    | '/checkout/'
+    | '/product/'
+    | '/seller/'
+    | '/admin/analytics'
+    | '/admin/dnk'
+    | '/admin/export-orders'
+    | '/admin/orders'
+    | '/admin/products'
+    | '/admin/sellers'
+    | '/admin/shipments'
+    | '/buyer/addresses'
+    | '/buyer/dashboard'
+    | '/buyer/profile'
+    | '/buyer/settings'
+    | '/buyer/wishlist'
+    | '/categories/$slug'
+    | '/checkout/$id'
+    | '/product/$id'
+    | '/seller/$id'
+    | '/seller/dashboard'
+    | '/seller/profile'
+    | '/seller/settings'
+    | '/admin/'
+    | '/categories/'
+    | '/buyer/orders/$id'
+    | '/seller/orders/$id'
+    | '/seller/products/$id'
+    | '/seller/products/new'
+    | '/seller/shipments/$id'
+    | '/buyer/orders/'
+    | '/seller/orders/'
+    | '/seller/products/'
+    | '/seller/shipments/'
+    | '/seller/orders/$id/export'
+    | '/seller/orders/$id/export/documents'
+    | '/seller/orders/$id/export/submit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  BuyerRoute: typeof BuyerRouteWithChildren
+  ContactRoute: typeof ContactRoute
+  FaqRoute: typeof FaqRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  HowItWorksRoute: typeof HowItWorksRoute
   LoginRoute: typeof LoginRoute
   MarketplaceRoute: typeof MarketplaceRoute
+  RegisterRoute: typeof RegisterRoute
+  SellersRoute: typeof SellersRoute
+  VerifyAccountRoute: typeof VerifyAccountRoute
+  CheckoutRoute: typeof CheckoutRoute
+  ProductRoute: typeof ProductRoute
+  SellerRoute: typeof SellerRoute
+  CategoriesSlugRoute: typeof CategoriesSlugRoute
+  CheckoutIdRoute: typeof CheckoutIdRoute
   ProductIdRoute: typeof ProductIdRoute
+  SellerIdRoute: typeof SellerIdRoute
+  SellerDashboardRoute: typeof SellerDashboardRoute
+  SellerProfileRoute: typeof SellerProfileRoute
+  SellerSettingsRoute: typeof SellerSettingsRoute
+  CategoriesIndexRoute: typeof CategoriesIndexRoute
+  SellerOrdersIdRoute: typeof SellerOrdersIdRouteWithChildren
+  SellerProductsIdRoute: typeof SellerProductsIdRoute
+  SellerProductsNewRoute: typeof SellerProductsNewRoute
+  SellerShipmentsIdRoute: typeof SellerShipmentsIdRoute
+  SellerOrdersIndexRoute: typeof SellerOrdersIndexRoute
+  SellerProductsIndexRoute: typeof SellerProductsIndexRoute
+  SellerShipmentsIndexRoute: typeof SellerShipmentsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -76,6 +656,55 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buyer': {
+      id: '/buyer'
+      path: '/buyer'
+      fullPath: '/buyer'
+      preLoaderRoute: typeof BuyerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-it-works': {
+      id: '/how-it-works'
+      path: '/how-it-works'
+      fullPath: '/how-it-works'
+      preLoaderRoute: typeof HowItWorksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -92,6 +721,153 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketplaceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sellers': {
+      id: '/sellers'
+      path: '/sellers'
+      fullPath: '/sellers'
+      preLoaderRoute: typeof SellersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verify-account': {
+      id: '/verify-account'
+      path: '/verify-account'
+      fullPath: '/verify-account'
+      preLoaderRoute: typeof VerifyAccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/analytics': {
+      id: '/admin/analytics'
+      path: '/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AdminAnalyticsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/dnk': {
+      id: '/admin/dnk'
+      path: '/dnk'
+      fullPath: '/admin/dnk'
+      preLoaderRoute: typeof AdminDnkRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/export-orders': {
+      id: '/admin/export-orders'
+      path: '/export-orders'
+      fullPath: '/admin/export-orders'
+      preLoaderRoute: typeof AdminExportOrdersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/orders': {
+      id: '/admin/orders'
+      path: '/orders'
+      fullPath: '/admin/orders'
+      preLoaderRoute: typeof AdminOrdersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/products': {
+      id: '/admin/products'
+      path: '/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AdminProductsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/sellers': {
+      id: '/admin/sellers'
+      path: '/sellers'
+      fullPath: '/admin/sellers'
+      preLoaderRoute: typeof AdminSellersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/shipments': {
+      id: '/admin/shipments'
+      path: '/shipments'
+      fullPath: '/admin/shipments'
+      preLoaderRoute: typeof AdminShipmentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/buyer/addresses': {
+      id: '/buyer/addresses'
+      path: '/addresses'
+      fullPath: '/buyer/addresses'
+      preLoaderRoute: typeof BuyerAddressesRouteImport
+      parentRoute: typeof BuyerRoute
+    }
+    '/buyer/dashboard': {
+      id: '/buyer/dashboard'
+      path: '/dashboard'
+      fullPath: '/buyer/dashboard'
+      preLoaderRoute: typeof BuyerDashboardRouteImport
+      parentRoute: typeof BuyerRoute
+    }
+    '/buyer/profile': {
+      id: '/buyer/profile'
+      path: '/profile'
+      fullPath: '/buyer/profile'
+      preLoaderRoute: typeof BuyerProfileRouteImport
+      parentRoute: typeof BuyerRoute
+    }
+    '/buyer/settings': {
+      id: '/buyer/settings'
+      path: '/settings'
+      fullPath: '/buyer/settings'
+      preLoaderRoute: typeof BuyerSettingsRouteImport
+      parentRoute: typeof BuyerRoute
+    }
+    '/buyer/wishlist': {
+      id: '/buyer/wishlist'
+      path: '/wishlist'
+      fullPath: '/buyer/wishlist'
+      preLoaderRoute: typeof BuyerWishlistRouteImport
+      parentRoute: typeof BuyerRoute
+    }
+    '/categories/': {
+      id: '/categories/'
+      path: '/categories'
+      fullPath: '/categories/'
+      preLoaderRoute: typeof CategoriesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/categories/$slug': {
+      id: '/categories/$slug'
+      path: '/categories/$slug'
+      fullPath: '/categories/$slug'
+      preLoaderRoute: typeof CategoriesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout/': {
+      id: '/checkout/'
+      path: '/checkout'
+      fullPath: '/checkout/'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout/$id': {
+      id: '/checkout/$id'
+      path: '/checkout/$id'
+      fullPath: '/checkout/$id'
+      preLoaderRoute: typeof CheckoutIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/product/': {
+      id: '/product/'
+      path: '/product'
+      fullPath: '/product/'
+      preLoaderRoute: typeof ProductRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/product/$id': {
       id: '/product/$id'
       path: '/product/$id'
@@ -99,14 +875,231 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/seller/': {
+      id: '/seller/'
+      path: '/seller'
+      fullPath: '/seller/'
+      preLoaderRoute: typeof SellerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/$id': {
+      id: '/seller/$id'
+      path: '/seller/$id'
+      fullPath: '/seller/$id'
+      preLoaderRoute: typeof SellerIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/dashboard': {
+      id: '/seller/dashboard'
+      path: '/seller/dashboard'
+      fullPath: '/seller/dashboard'
+      preLoaderRoute: typeof SellerDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/profile': {
+      id: '/seller/profile'
+      path: '/seller/profile'
+      fullPath: '/seller/profile'
+      preLoaderRoute: typeof SellerProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/settings': {
+      id: '/seller/settings'
+      path: '/seller/settings'
+      fullPath: '/seller/settings'
+      preLoaderRoute: typeof SellerSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buyer/orders/': {
+      id: '/buyer/orders/'
+      path: '/orders'
+      fullPath: '/buyer/orders/'
+      preLoaderRoute: typeof BuyerOrdersIndexRouteImport
+      parentRoute: typeof BuyerRoute
+    }
+    '/buyer/orders/$id': {
+      id: '/buyer/orders/$id'
+      path: '/orders/$id'
+      fullPath: '/buyer/orders/$id'
+      preLoaderRoute: typeof BuyerOrdersIdRouteImport
+      parentRoute: typeof BuyerRoute
+    }
+    '/seller/orders/': {
+      id: '/seller/orders/'
+      path: '/seller/orders'
+      fullPath: '/seller/orders/'
+      preLoaderRoute: typeof SellerOrdersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/orders/$id': {
+      id: '/seller/orders/$id'
+      path: '/seller/orders/$id'
+      fullPath: '/seller/orders/$id'
+      preLoaderRoute: typeof SellerOrdersIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/products/': {
+      id: '/seller/products/'
+      path: '/seller/products'
+      fullPath: '/seller/products/'
+      preLoaderRoute: typeof SellerProductsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/products/$id': {
+      id: '/seller/products/$id'
+      path: '/seller/products/$id'
+      fullPath: '/seller/products/$id'
+      preLoaderRoute: typeof SellerProductsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/products/new': {
+      id: '/seller/products/new'
+      path: '/seller/products/new'
+      fullPath: '/seller/products/new'
+      preLoaderRoute: typeof SellerProductsNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/shipments/': {
+      id: '/seller/shipments/'
+      path: '/seller/shipments'
+      fullPath: '/seller/shipments/'
+      preLoaderRoute: typeof SellerShipmentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/shipments/$id': {
+      id: '/seller/shipments/$id'
+      path: '/seller/shipments/$id'
+      fullPath: '/seller/shipments/$id'
+      preLoaderRoute: typeof SellerShipmentsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/orders/$id/export': {
+      id: '/seller/orders/$id/export'
+      path: '/export'
+      fullPath: '/seller/orders/$id/export'
+      preLoaderRoute: typeof SellerOrdersIdExportRouteImport
+      parentRoute: typeof SellerOrdersIdRoute
+    }
+    '/seller/orders/$id/export/documents': {
+      id: '/seller/orders/$id/export/documents'
+      path: '/documents'
+      fullPath: '/seller/orders/$id/export/documents'
+      preLoaderRoute: typeof SellerOrdersIdExportDocumentsRouteImport
+      parentRoute: typeof SellerOrdersIdExportRoute
+    }
+    '/seller/orders/$id/export/submit': {
+      id: '/seller/orders/$id/export/submit'
+      path: '/submit'
+      fullPath: '/seller/orders/$id/export/submit'
+      preLoaderRoute: typeof SellerOrdersIdExportSubmitRouteImport
+      parentRoute: typeof SellerOrdersIdExportRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
+  AdminDnkRoute: typeof AdminDnkRoute
+  AdminExportOrdersRoute: typeof AdminExportOrdersRoute
+  AdminOrdersRoute: typeof AdminOrdersRoute
+  AdminProductsRoute: typeof AdminProductsRoute
+  AdminSellersRoute: typeof AdminSellersRoute
+  AdminShipmentsRoute: typeof AdminShipmentsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnalyticsRoute: AdminAnalyticsRoute,
+  AdminDnkRoute: AdminDnkRoute,
+  AdminExportOrdersRoute: AdminExportOrdersRoute,
+  AdminOrdersRoute: AdminOrdersRoute,
+  AdminProductsRoute: AdminProductsRoute,
+  AdminSellersRoute: AdminSellersRoute,
+  AdminShipmentsRoute: AdminShipmentsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface BuyerRouteChildren {
+  BuyerAddressesRoute: typeof BuyerAddressesRoute
+  BuyerDashboardRoute: typeof BuyerDashboardRoute
+  BuyerProfileRoute: typeof BuyerProfileRoute
+  BuyerSettingsRoute: typeof BuyerSettingsRoute
+  BuyerWishlistRoute: typeof BuyerWishlistRoute
+  BuyerOrdersIdRoute: typeof BuyerOrdersIdRoute
+  BuyerOrdersIndexRoute: typeof BuyerOrdersIndexRoute
+}
+
+const BuyerRouteChildren: BuyerRouteChildren = {
+  BuyerAddressesRoute: BuyerAddressesRoute,
+  BuyerDashboardRoute: BuyerDashboardRoute,
+  BuyerProfileRoute: BuyerProfileRoute,
+  BuyerSettingsRoute: BuyerSettingsRoute,
+  BuyerWishlistRoute: BuyerWishlistRoute,
+  BuyerOrdersIdRoute: BuyerOrdersIdRoute,
+  BuyerOrdersIndexRoute: BuyerOrdersIndexRoute,
+}
+
+const BuyerRouteWithChildren = BuyerRoute._addFileChildren(BuyerRouteChildren)
+
+interface SellerOrdersIdExportRouteChildren {
+  SellerOrdersIdExportDocumentsRoute: typeof SellerOrdersIdExportDocumentsRoute
+  SellerOrdersIdExportSubmitRoute: typeof SellerOrdersIdExportSubmitRoute
+}
+
+const SellerOrdersIdExportRouteChildren: SellerOrdersIdExportRouteChildren = {
+  SellerOrdersIdExportDocumentsRoute: SellerOrdersIdExportDocumentsRoute,
+  SellerOrdersIdExportSubmitRoute: SellerOrdersIdExportSubmitRoute,
+}
+
+const SellerOrdersIdExportRouteWithChildren =
+  SellerOrdersIdExportRoute._addFileChildren(SellerOrdersIdExportRouteChildren)
+
+interface SellerOrdersIdRouteChildren {
+  SellerOrdersIdExportRoute: typeof SellerOrdersIdExportRouteWithChildren
+}
+
+const SellerOrdersIdRouteChildren: SellerOrdersIdRouteChildren = {
+  SellerOrdersIdExportRoute: SellerOrdersIdExportRouteWithChildren,
+}
+
+const SellerOrdersIdRouteWithChildren = SellerOrdersIdRoute._addFileChildren(
+  SellerOrdersIdRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
+  BuyerRoute: BuyerRouteWithChildren,
+  ContactRoute: ContactRoute,
+  FaqRoute: FaqRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
+  HowItWorksRoute: HowItWorksRoute,
   LoginRoute: LoginRoute,
   MarketplaceRoute: MarketplaceRoute,
+  RegisterRoute: RegisterRoute,
+  SellersRoute: SellersRoute,
+  VerifyAccountRoute: VerifyAccountRoute,
+  CheckoutRoute: CheckoutRoute,
+  ProductRoute: ProductRoute,
+  SellerRoute: SellerRoute,
+  CategoriesSlugRoute: CategoriesSlugRoute,
+  CheckoutIdRoute: CheckoutIdRoute,
   ProductIdRoute: ProductIdRoute,
+  SellerIdRoute: SellerIdRoute,
+  SellerDashboardRoute: SellerDashboardRoute,
+  SellerProfileRoute: SellerProfileRoute,
+  SellerSettingsRoute: SellerSettingsRoute,
+  CategoriesIndexRoute: CategoriesIndexRoute,
+  SellerOrdersIdRoute: SellerOrdersIdRouteWithChildren,
+  SellerProductsIdRoute: SellerProductsIdRoute,
+  SellerProductsNewRoute: SellerProductsNewRoute,
+  SellerShipmentsIdRoute: SellerShipmentsIdRoute,
+  SellerOrdersIndexRoute: SellerOrdersIndexRoute,
+  SellerProductsIndexRoute: SellerProductsIndexRoute,
+  SellerShipmentsIndexRoute: SellerShipmentsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

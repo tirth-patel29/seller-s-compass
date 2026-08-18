@@ -10,10 +10,10 @@ import type { Role } from "@/lib/types";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Sign in — ExportSetu" },
-      { name: "description", content: "Sign in to ExportSetu as a seller, international buyer or operations admin." },
-      { property: "og:title", content: "Sign in — ExportSetu" },
-      { property: "og:description", content: "Demo sign-in for the ExportSetu export-enablement prototype." },
+      { title: "Sign in — DNK" },
+      { name: "description", content: "Sign in to DNK as a seller, international buyer or operations admin." },
+      { property: "og:title", content: "Sign in — DNK" },
+      { property: "og:description", content: "Demo sign-in for the DNK export-enablement prototype." },
     ],
   }),
   component: LoginPage,
@@ -45,7 +45,7 @@ function LoginPage() {
   return (
     <MarketplaceLayout>
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6">
-        <h1 className="text-3xl font-bold text-foreground">Sign in to ExportSetu</h1>
+        <h1 className="text-3xl font-bold text-foreground">Sign in to DNK</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Choose a demo account. Authentication is mocked in this prototype and is wired behind
           <code className="mx-1 rounded bg-secondary px-1 py-0.5 text-xs">authService</code>

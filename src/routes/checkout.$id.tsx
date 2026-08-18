@@ -23,10 +23,10 @@ import { useAuth } from "@/hooks/useAuth";
 export const Route = createFileRoute("/checkout/$id")({
   head: () => ({
     meta: [
-      { title: "Checkout — ExportSetu" },
-      { name: "description", content: "Complete your international order from a verified Indian artisan on ExportSetu." },
-      { property: "og:title", content: "Checkout — ExportSetu" },
-      { property: "og:description", content: "Secure mocked checkout for the ExportSetu prototype." },
+      { title: "Checkout — DNK" },
+      { name: "description", content: "Complete your international order from a verified Indian artisan on DNK." },
+      { property: "og:title", content: "Checkout — DNK" },
+      { property: "og:description", content: "Secure mocked checkout for the DNK prototype." },
     ],
   }),
   component: Checkout,
@@ -221,3 +221,4 @@ function Checkout() {
     </MarketplaceLayout>
   );
 }
+

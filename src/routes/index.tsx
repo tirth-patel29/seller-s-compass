@@ -15,13 +15,13 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ExportSetu — Take Your Products From India to the World" },
+      { title: "DNK — Take Your Products From India to the World" },
       {
         name: "description",
         content:
-          "ExportSetu helps Indian artisans and MSMEs create a digital storefront, reach international buyers and export through DNK-enabled logistics.",
+          "DNK helps Indian artisans and MSMEs create a digital storefront, reach international buyers and export through DNK-enabled logistics.",
       },
-      { property: "og:title", content: "ExportSetu — From India to the World" },
+      { property: "og:title", content: "DNK — From India to the World" },
       {
         property: "og:description",
         content: "Digital storefront. Trusted buyers. Assisted exports. DNK-enabled delivery.",
@@ -152,3 +152,4 @@ function Landing() {
     </MarketplaceLayout>
   );
 }
+

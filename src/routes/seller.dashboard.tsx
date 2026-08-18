@@ -13,9 +13,9 @@ import { exportService, readinessLabel, readinessScore } from "@/services/export
 export const Route = createFileRoute("/seller/dashboard")({
   head: () => ({
     meta: [
-      { title: "Seller dashboard — ExportSetu" },
+      { title: "Seller dashboard — DNK" },
       { name: "description", content: "Track products, international orders, export readiness and revenue in one seller dashboard." },
-      { property: "og:title", content: "Seller dashboard — ExportSetu" },
+      { property: "og:title", content: "Seller dashboard — DNK" },
       { property: "og:description", content: "Your export business at a glance." },
     ],
   }),

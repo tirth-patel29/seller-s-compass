@@ -9,7 +9,7 @@ import type { AppState } from "@/lib/types";
  * helpers for Supabase queries (Auth + PostgreSQL + Storage) and every service
  * in `src/services/*` keeps its current interface.
  */
-const STORAGE_KEY = "exportsetu-state-v1";
+const STORAGE_KEY = "DNK-state-v1";
 
 let state: AppState = initialState;
 const listeners = new Set<() => void>();
@@ -68,3 +68,4 @@ export const delay = (ms = 500) => new Promise<void>((r) => setTimeout(r, ms));
 
 export const uid = (prefix: string) =>
   `${prefix}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+

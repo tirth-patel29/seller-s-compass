@@ -4,6 +4,7 @@ import type { Shipment, ShipmentStage } from "@/lib/types";
 export const STAGES: { key: ShipmentStage; label: string; buyerLabel: string }[] = [
   { key: "order_confirmed", label: "Order Confirmed", buyerLabel: "Order Confirmed" },
   { key: "export_processing", label: "Export Processing", buyerLabel: "Export Processing" },
+  { key: "preparing", label: "Preparing", buyerLabel: "Preparing" },
   { key: "dnk_submitted", label: "DNK Submitted", buyerLabel: "DNK Processing" },
   { key: "customs", label: "Customs Processing", buyerLabel: "Customs" },
   { key: "dispatched", label: "Dispatched", buyerLabel: "Dispatched" },
@@ -41,7 +42,7 @@ export const shipmentService = {
       stage: "dnk_submitted",
       eta: eta.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }),
       events: [
-        { date: fmt(now), label: "Order confirmed", location: "ExportSetu" },
+        { date: fmt(now), label: "Order confirmed", location: "DNK" },
         { date: fmt(now), label: "Export details completed", location: "Seller" },
         { date: fmt(now), label: "DNK submission created", location: dnk },
       ],
@@ -83,3 +84,4 @@ export const shipmentService = {
     }));
   },
 };
+

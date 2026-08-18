@@ -9,9 +9,9 @@ import { useAppState } from "@/services/db";
 export const Route = createFileRoute("/seller/$id")({
   head: () => ({
     meta: [
-      { title: "Verified seller profile — ExportSetu" },
+      { title: "Verified seller profile — DNK" },
       { name: "description", content: "Verified Indian artisan profile with identity, business and export verification, delivery record and product catalogue." },
-      { property: "og:title", content: "Verified seller — ExportSetu" },
+      { property: "og:title", content: "Verified seller — DNK" },
       { property: "og:description", content: "Trust information for an Indian artisan selling internationally." },
     ],
   }),
@@ -92,7 +92,7 @@ function SellerProfile() {
           <h2 className="text-lg font-semibold text-foreground">Our story</h2>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">{seller.story}</p>
           <p className="mt-3 text-xs text-muted-foreground">
-            {seller.businessType} · {seller.category} · Selling on ExportSetu since {seller.joined}
+            {seller.businessType} · {seller.category} · Selling on DNK since {seller.joined}
           </p>
         </section>
 
@@ -114,3 +114,4 @@ function SellerProfile() {
     </MarketplaceLayout>
   );
 }
+

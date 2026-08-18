@@ -24,7 +24,7 @@ export function ProductCard({ product, seller }: { product: Product; seller?: Se
         <h3 className="line-clamp-2 text-sm font-semibold text-foreground">{product.name}</h3>
         <p className="text-base font-semibold text-foreground">{inr(product.price)}</p>
         <p className="text-xs text-muted-foreground">
-          {product.origin} · {seller?.name ?? "ExportSetu Seller"}
+          {product.origin} · {seller?.name ?? "DNK Seller"}
         </p>
         <div className="mt-auto flex flex-wrap gap-2 pt-2">
           {seller?.identityVerified && (

@@ -6,7 +6,7 @@ export function Logo({ className, invert = false }: { className?: string; invert
     <Link
       to="/"
       className={cn("inline-flex items-center gap-2 font-semibold tracking-tight", className)}
-      aria-label="ExportSetu home"
+      aria-label="DNK home"
     >
       <span
         className={cn(
@@ -23,3 +23,4 @@ export function Logo({ className, invert = false }: { className?: string; invert
     </Link>
   );
 }
+

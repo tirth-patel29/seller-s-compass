@@ -90,6 +90,7 @@ export interface ExportOrder {
   packageInfo: { length: string; width: string; height: string; weight: string };
   exportInfo: { hsCode: string; declaredValue: string; purpose: string };
   documents: { invoice: boolean; originDeclaration: boolean };
+  documentsGenerated?: boolean;
   dnk: string;
   pbeRef?: string;
   status: "draft" | "submitted" | "customs" | "cleared";
@@ -101,6 +102,7 @@ export type ShipmentStage =
   | "export_processing"
   | "dnk_submitted"
   | "customs"
+  | "preparing"
   | "dispatched"
   | "in_transit"
   | "delivered";

@@ -9,9 +9,9 @@ import { useAppState } from "@/services/db";
 export const Route = createFileRoute("/product/$id")({
   head: () => ({
     meta: [
-      { title: "Product — ExportSetu" },
+      { title: "Product — DNK" },
       { name: "description", content: "Handmade Indian product from a verified artisan, with international shipping and end-to-end export tracking." },
-      { property: "og:title", content: "Handmade Indian product — ExportSetu" },
+      { property: "og:title", content: "Handmade Indian product — DNK" },
       { property: "og:description", content: "Buy directly from verified Indian artisans with DNK-enabled international delivery." },
     ],
   }),
@@ -216,3 +216,4 @@ function ProductDetail() {
     </MarketplaceLayout>
   );
 }
+

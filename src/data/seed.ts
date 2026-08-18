@@ -1,24 +1,21 @@
-import bag from "@/assets/product-bag.jpg";
-import terracotta from "@/assets/product-terracotta.jpg";
-import textile from "@/assets/product-textile.jpg";
-import jewelry from "@/assets/product-jewelry.jpg";
 import type { AppState, Product, Seller } from "@/lib/types";
-
-export const IMAGES: Record<string, string> = {
-  bag,
-  terracotta,
-  textile,
-  jewelry,
-};
+import { getProductImage } from "./assets";
 
 export const CATEGORIES = [
-  "Handcrafted Bags",
-  "Handloom Textiles",
-  "Terracotta & Decor",
-  "Wood Craft",
-  "Indian Paintings",
-  "Traditional Jewelry",
+  "Handicrafts",
+  "Textiles & Handloom",
+  "Home Decor",
+  "Jewellery & Accessories",
+  "Art & Paintings",
+  "Bags & Accessories",
+  "Pottery & Terracotta",
+  "Woodcraft",
+  "Metalcraft",
+  "Traditional & Cultural Products",
+  "Gifts & Collectibles",
+  "Specialty Products",
 ];
+
 
 export const DESTINATIONS = ["United States", "United Kingdom", "Germany", "Australia", "Canada"];
 
@@ -158,21 +155,26 @@ const P = (
 });
 
 export const products: Product[] = [
-  P("prd-1", "slr-1", "Handcrafted Kutch Embroidery Bag", "Handcrafted Bags", 1999, "Gujarat, India", bag, "A hand-embroidered shoulder bag made in Kutch using traditional mirror work and naturally dyed cotton.", 1284),
-  P("prd-2", "slr-1", "Mirror Work Potli Pouch", "Handcrafted Bags", 899, "Gujarat, India", bag, "A small drawstring potli pouch with hand-set mirror work.", 642),
-  P("prd-3", "slr-1", "Kutch Embroidered Tote", "Handcrafted Bags", 2499, "Gujarat, India", bag, "A roomy everyday tote with dense hand embroidery across the front panel.", 431),
-  P("prd-4", "slr-2", "Indigo Handloom Stole", "Handloom Textiles", 1650, "Gujarat, India", textile, "Handwoven cotton stole dyed with natural indigo on a traditional pit loom.", 902),
-  P("prd-5", "slr-2", "Handloom Cotton Runner", "Handloom Textiles", 1250, "Gujarat, India", textile, "A handwoven table runner in undyed cotton with indigo borders.", 318),
-  P("prd-6", "slr-3", "Terracotta Decorative Vase", "Terracotta & Decor", 1450, "Uttar Pradesh, India", terracotta, "Wheel-thrown terracotta vase with hand-carved geometric bands.", 522),
-  P("prd-7", "slr-3", "Terracotta Tea Light Set", "Terracotta & Decor", 750, "Uttar Pradesh, India", terracotta, "Set of six hand-shaped terracotta tea light holders.", 289),
-  P("prd-8", "slr-4", "Carved Sheesham Wall Panel", "Wood Craft", 4200, "Uttar Pradesh, India", terracotta, "Hand-carved sheesham wood jali panel finished with natural wax.", 401),
-  P("prd-9", "slr-4", "Wooden Spice Box", "Wood Craft", 1850, "Uttar Pradesh, India", terracotta, "Traditional masala dabba turned and carved from sheesham wood.", 265),
-  P("prd-10", "slr-5", "Madhubani Fish Motif Painting", "Indian Paintings", 3600, "Bihar, India", jewelry, "Hand-painted Mithila artwork on handmade paper using natural pigments.", 613),
-  P("prd-11", "slr-5", "Mithila Tree of Life Artwork", "Indian Paintings", 5200, "Bihar, India", jewelry, "A large Tree of Life composition painted in the Madhubani tradition.", 344),
-  P("prd-12", "slr-6", "Oxidised Silver Meenakari Set", "Traditional Jewelry", 5400, "Rajasthan, India", jewelry, "Necklace and earring set in oxidised silver with hand-applied meenakari enamel.", 1123),
-  P("prd-13", "slr-6", "Silver Jhumka Earrings", "Traditional Jewelry", 2200, "Rajasthan, India", jewelry, "Classic Jaipur jhumkas in oxidised silver with pearl drops.", 774),
-  P("prd-14", "slr-7", "Channapatna Lacquered Bowl Set", "Wood Craft", 1350, "Karnataka, India", terracotta, "Turned wooden bowls finished with non-toxic vegetable lacquer.", 208),
-  P("prd-15", "slr-8", "Pochampally Ikat Scarf", "Handloom Textiles", 2100, "Telangana, India", textile, "GI-tagged Pochampally ikat scarf handwoven in mercerised cotton.", 486),
+  P("prd-1", "slr-1", "Handcrafted Kutch Embroidery Bag", "Bags & Accessories", 1999, "Gujarat, India", getProductImage("prd-1"), "A hand-embroidered shoulder bag made in Kutch using traditional mirror work and naturally dyed cotton.", 1284),
+  P("prd-2", "slr-1", "Mirror Work Potli Pouch", "Bags & Accessories", 899, "Gujarat, India", getProductImage("prd-2"), "A small drawstring potli pouch with hand-set mirror work.", 642),
+  P("prd-3", "slr-1", "Kutch Embroidered Tote", "Bags & Accessories", 2499, "Gujarat, India", getProductImage("prd-3"), "A roomy everyday tote with dense hand embroidery across the front panel.", 431),
+  P("prd-4", "slr-2", "Indigo Handloom Stole", "Textiles & Handloom", 1650, "Gujarat, India", getProductImage("prd-4"), "Handwoven cotton stole dyed with natural indigo on a traditional pit loom.", 902),
+  P("prd-5", "slr-2", "Handloom Cotton Runner", "Textiles & Handloom", 1250, "Gujarat, India", getProductImage("prd-5"), "A handwoven table runner in undyed cotton with indigo borders.", 318),
+  P("prd-6", "slr-3", "Terracotta Decorative Vase", "Pottery & Terracotta", 1450, "Uttar Pradesh, India", getProductImage("prd-6"), "Wheel-thrown terracotta vase with hand-carved geometric bands.", 522),
+  P("prd-7", "slr-3", "Terracotta Tea Light Set", "Pottery & Terracotta", 750, "Uttar Pradesh, India", getProductImage("prd-7"), "Set of six hand-shaped terracotta tea light holders.", 289),
+  P("prd-8", "slr-4", "Carved Sheesham Wall Panel", "Woodcraft", 4200, "Uttar Pradesh, India", getProductImage("prd-8"), "Hand-carved sheesham wood jali panel finished with natural wax.", 401),
+  P("prd-9", "slr-4", "Wooden Spice Box", "Woodcraft", 1850, "Uttar Pradesh, India", getProductImage("prd-9"), "Traditional masala dabba turned and carved from sheesham wood.", 265),
+  P("prd-10", "slr-5", "Madhubani Fish Motif Painting", "Art & Paintings", 3600, "Bihar, India", getProductImage("prd-10"), "Hand-painted Mithila artwork on handmade paper using natural pigments.", 613),
+  P("prd-11", "slr-5", "Mithila Tree of Life Artwork", "Art & Paintings", 5200, "Bihar, India", getProductImage("prd-11"), "A large Tree of Life composition painted in the Madhubani tradition.", 344),
+  P("prd-12", "slr-6", "Oxidised Silver Meenakari Set", "Jewellery & Accessories", 5400, "Rajasthan, India", getProductImage("prd-12"), "Necklace and earring set in oxidised silver with hand-applied meenakari enamel.", 1123),
+  P("prd-13", "slr-6", "Silver Jhumka Earrings", "Jewellery & Accessories", 2200, "Rajasthan, India", getProductImage("prd-13"), "Classic Jaipur jhumkas in oxidised silver with pearl drops.", 774),
+  P("prd-14", "slr-7", "Channapatna Lacquered Bowl Set", "Woodcraft", 1350, "Karnataka, India", getProductImage("prd-14"), "Turned wooden bowls finished with non-toxic vegetable lacquer.", 208),
+  P("prd-15", "slr-8", "Pochampally Ikat Scarf", "Textiles & Handloom", 2100, "Telangana, India", getProductImage("prd-15"), "GI-tagged Pochampally ikat scarf handwoven in mercerised cotton.", 486),
+  P("prd-16", "slr-6", "Brass Diya Set", "Metalcraft", 1200, "Uttar Pradesh, India", getProductImage("prd-16"), "Traditional handcrafted brass diyas for festive occasions.", 340),
+  P("prd-17", "slr-2", "Handcrafted Textile Cushion", "Home Decor", 850, "Rajasthan, India", getProductImage("prd-17"), "Cotton cushion cover with traditional block prints.", 412),
+  P("prd-18", "slr-1", "Handmade Jute Bag", "Bags & Accessories", 1100, "West Bengal, India", getProductImage("prd-18"), "Eco-friendly handmade jute bag with ethnic motifs.", 298),
+  P("prd-19", "slr-3", "Artisan Wall Decor", "Home Decor", 2800, "Madhya Pradesh, India", getProductImage("prd-19"), "Tribal art inspired wall hanging decor.", 156),
+  P("prd-20", "slr-8", "Handloom Cotton Stole", "Textiles & Handloom", 1400, "Tamil Nadu, India", getProductImage("prd-20"), "Lightweight cotton stole with contrasting borders.", 385),
 ];
 
 const daysAgo = (n: number) => {
@@ -183,9 +185,9 @@ const daysAgo = (n: number) => {
 
 export const initialState: AppState = {
   users: [
-    { id: "usr-1", name: "Meena Patel", email: "meena@exportsetu.in", role: "seller", sellerId: "slr-1" },
+    { id: "usr-1", name: "Meena Patel", email: "meena@DNK.in", role: "seller", sellerId: "slr-1" },
     { id: "usr-2", name: "Emily Carter", email: "emily@buyer.com", role: "buyer" },
-    { id: "usr-3", name: "Operations Admin", email: "admin@exportsetu.in", role: "admin" },
+    { id: "usr-3", name: "Operations Admin", email: "admin@DNK.in", role: "admin" },
   ],
   sellers,
   products,
@@ -217,3 +219,4 @@ export const initialState: AppState = {
     { id: "SHP-3004", orderId: "ORD-10235", exportOrderId: "EXP-2004", trackingId: "IN337781209CA", destination: "Canada", stage: "delivered", eta: "Delivered 14 Aug 2026", events: [{ date: "02 Aug", label: "DNK submission created", location: "Kolkata DNK" }, { date: "03 Aug", label: "Package accepted", location: "Kolkata DNK" }, { date: "05 Aug", label: "Customs processing", location: "Kolkata FPO" }, { date: "07 Aug", label: "International dispatch", location: "Kolkata" }, { date: "14 Aug", label: "Delivered", location: "Toronto, Canada" }] },
   ],
 };
+
