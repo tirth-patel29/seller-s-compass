@@ -3,7 +3,7 @@ import { BadgeCheck, Plane } from "lucide-react";
 import { inr } from "@/lib/format";
 import type { Product, Seller } from "@/lib/types";
 
-export function ProductCard({ product, seller }: { product: Product; seller?: Seller }) {
+export function ProductCard({ product, seller }: { product: Product; seller?: Seller | undefined }) {
   return (
     <Link
       to="/product/$id"

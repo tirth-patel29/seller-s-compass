@@ -12,7 +12,7 @@ const NAV = [
   { label: "Explore", to: "/marketplace" as const },
   { label: "Categories", to: "/marketplace" as const, search: { view: "categories" } },
   { label: "Verified Sellers", to: "/marketplace" as const, search: { verified: "true" } },
-  { label: "How It Works", to: "/" as const, hash: "how-it-works" },
+  { label: "How It Works", to: "/" as const, hash: "how-it-works" as string | undefined },
 ];
 
 export function MarketplaceLayout({ children }: { children: ReactNode }) {
@@ -32,7 +32,7 @@ export function MarketplaceLayout({ children }: { children: ReactNode }) {
           key={n.label}
           to={n.to}
           search={n.search as never}
-          hash={n.hash}
+          {...(n.hash ? { hash: n.hash } : {})}
           className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
         >
           {n.label}

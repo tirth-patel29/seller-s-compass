@@ -9,12 +9,12 @@ import { CATEGORIES } from "@/data/seed";
 import { useAppState } from "@/services/db";
 
 interface MarketplaceSearch {
-  q?: string;
-  category?: string;
-  verified?: string;
-  maxPrice?: number;
-  origin?: string;
-  view?: string;
+  q?: string | undefined;
+  category?: string | undefined;
+  verified?: string | undefined;
+  maxPrice?: number | undefined;
+  origin?: string | undefined;
+  view?: string | undefined;
 }
 
 export const Route = createFileRoute("/marketplace")({

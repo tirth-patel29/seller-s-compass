@@ -15,7 +15,7 @@ export function LoadingState({ label = "Loading…" }: { label?: string }) {
   );
 }
 
-export function ErrorState({ message, onRetry }: { message: string; onRetry?: () => void }) {
+export function ErrorState({ message, onRetry }: { message: string; onRetry?: (() => void) | undefined }) {
   return (
     <div role="alert" className="rounded-xl border border-destructive/30 bg-destructive/5 p-8 text-center">
       <AlertTriangle className="mx-auto size-5 text-destructive" aria-hidden="true" />
@@ -37,8 +37,8 @@ export function EmptyState({
 }: {
   title: string;
   description?: string;
-  action?: ReactNode;
-  icon?: ReactNode;
+  action?: ReactNode | undefined;
+  icon?: ReactNode | undefined;
 }) {
   return (
     <div className="rounded-xl border border-dashed border-border bg-card p-12 text-center">
