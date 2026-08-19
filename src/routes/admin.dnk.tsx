@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState, useMemo } from 'react'
-import { Search, Map as MapIcon, Filter, Info } from 'lucide-react'
+import { Search, Map as MapIcon, Filter, Info, MapPin } from 'lucide-react'
 import { useAppState } from '@/services/db'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@/components/ui/sheet'
 import { DNKCard } from '@/components/cards/DNKCard'
 import { Pill } from '@/components/StatusBadge'
+import { DNKMap } from '@/components/DNKMap'
 import type { DNKLocation } from '@/lib/types'
 
 export const Route = createFileRoute('/admin/dnk')({
@@ -66,122 +67,146 @@ function AdminDNKPage() {
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto pb-10">
-      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Dak Ghar Niryat Kendra Network</h1>
-          <p className="text-muted-foreground mt-1">Manage and explore postal export locations across Gujarat.</p>
+    <div className="flex flex-col h-[calc(100vh-4rem)]">
+      {/* Header Area */}
+      <div className="flex-none p-6 pb-4 bg-background border-b border-border">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 max-w-7xl mx-auto">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">Gujarat DNK Network Map</h1>
+            <p className="text-muted-foreground mt-1">Explore export-enabled postal locations across Gujarat.</p>
+          </div>
+          <div className="text-right">
+            <span className="text-sm text-muted-foreground">Showing</span>
+            <div className="text-2xl font-bold">{filteredLocations.length} locations</div>
+          </div>
         </div>
-      </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="rounded-xl border border-border bg-card p-4 shadow-sm flex flex-col justify-between">
-          <span className="text-sm font-medium text-muted-foreground">Total State DNKs</span>
-          <span className="text-3xl font-bold mt-2">{stats.total}</span>
-          <span className="text-xs text-muted-foreground mt-1">Reported by Government</span>
-        </div>
-        <div className="rounded-xl border border-border bg-card p-4 shadow-sm flex flex-col justify-between">
-          <span className="text-sm font-medium text-muted-foreground">Verified</span>
-          <span className="text-3xl font-bold mt-2 text-success">{stats.verified}</span>
-        </div>
-        <div className="rounded-xl border border-border bg-card p-4 shadow-sm flex flex-col justify-between">
-          <span className="text-sm font-medium text-muted-foreground">Verification Req.</span>
-          <span className="text-3xl font-bold mt-2 text-brand">{stats.verificationRequired}</span>
-        </div>
-        <div className="rounded-xl border border-border bg-card p-4 shadow-sm flex flex-col justify-between">
-          <span className="text-sm font-medium text-muted-foreground">Historical/Legacy</span>
-          <span className="text-3xl font-bold mt-2 text-muted-foreground">{stats.historical}</span>
-        </div>
-      </div>
-
-      {/* Map Area Placeholder */}
-      <div className="rounded-xl border border-border bg-secondary/30 min-h-[300px] flex flex-col items-center justify-center p-8 text-center relative overflow-hidden">
-        <MapIcon className="size-12 text-muted-foreground/30 mb-4" />
-        <h3 className="font-semibold text-lg text-foreground mb-2">Gujarat DNK Interactive Map</h3>
-        <p className="text-sm text-muted-foreground max-w-md">
-          Location markers require verified official coordinates. Unverified records and legacy notifications are withheld from the map view to preserve data integrity.
-        </p>
-      </div>
-
-      {/* Filter Bar */}
-      <div className="flex flex-col md:flex-row gap-4 items-center bg-card p-4 rounded-xl border border-border shadow-sm">
-        <div className="relative flex-1 w-full">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-          <Input 
-            placeholder="Search DNK, city, district or post office..." 
-            className="pl-9 bg-background w-full"
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-          />
-        </div>
-        <div className="flex gap-4 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
-          <Select value={regionFilter} onValueChange={setRegionFilter}>
-            <SelectTrigger className="w-[180px] bg-background">
-              <SelectValue placeholder="Region" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="All">All Regions</SelectItem>
-              <SelectItem value="North Gujarat">North Gujarat</SelectItem>
-              <SelectItem value="Central Gujarat">Central Gujarat</SelectItem>
-              <SelectItem value="Saurashtra & Kutch">Saurashtra & Kutch</SelectItem>
-              <SelectItem value="South Gujarat">South Gujarat</SelectItem>
-            </SelectContent>
-          </Select>
-
-          <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-[160px] bg-background">
-              <SelectValue placeholder="Status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="All">All Statuses</SelectItem>
-              <SelectItem value="verified">Verified</SelectItem>
-              <SelectItem value="verification_required">Verification Req.</SelectItem>
-              <SelectItem value="historical">Historical</SelectItem>
-            </SelectContent>
-          </Select>
-
-          <Select value={typeFilter} onValueChange={setTypeFilter}>
-            <SelectTrigger className="w-[160px] bg-background">
-              <SelectValue placeholder="Type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="All">All Types</SelectItem>
-              <SelectItem value="Head Office">Head Office</SelectItem>
-              <SelectItem value="Sub Office">Sub Office</SelectItem>
-              <SelectItem value="IBC">IBC</SelectItem>
-              <SelectItem value="MDG">MDG</SelectItem>
-              <SelectItem value="Industrial Estate PO">Industrial Estate PO</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-
-      {/* Results */}
-      {filteredLocations.length > 0 ? (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {filteredLocations.map(loc => (
-            <DNKCard 
-              key={loc.id} 
-              location={loc} 
-              onClick={() => setSelectedDNK(loc)} 
+        {/* Filter Bar */}
+        <div className="mt-4 flex flex-col md:flex-row gap-4 items-center max-w-7xl mx-auto">
+          <div className="relative flex-1 w-full">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+            <Input 
+              placeholder="Search DNK, city, district or post office..." 
+              className="pl-9 bg-background w-full"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
             />
-          ))}
+          </div>
+          <div className="flex gap-4 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
+            <Select value={regionFilter} onValueChange={setRegionFilter}>
+              <SelectTrigger className="w-[180px] bg-background">
+                <SelectValue placeholder="Region" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="All">All Regions</SelectItem>
+                <SelectItem value="North Gujarat">North Gujarat</SelectItem>
+                <SelectItem value="Central Gujarat">Central Gujarat</SelectItem>
+                <SelectItem value="Saurashtra & Kutch">Saurashtra & Kutch</SelectItem>
+                <SelectItem value="South Gujarat">South Gujarat</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[160px] bg-background">
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="All">All Statuses</SelectItem>
+                <SelectItem value="verified">Verified</SelectItem>
+                <SelectItem value="verification_required">Verification Req.</SelectItem>
+                <SelectItem value="historical">Historical</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Select value={typeFilter} onValueChange={setTypeFilter}>
+              <SelectTrigger className="w-[160px] bg-background">
+                <SelectValue placeholder="Type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="All">All Types</SelectItem>
+                <SelectItem value="Head Office">Head Office</SelectItem>
+                <SelectItem value="Sub Office">Sub Office</SelectItem>
+                <SelectItem value="IBC">IBC</SelectItem>
+                <SelectItem value="MDG">MDG</SelectItem>
+                <SelectItem value="Industrial Estate PO">Industrial Estate PO</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-      ) : (
-        <div className="text-center py-20 bg-card rounded-xl border border-border shadow-sm">
-          <Info className="size-10 text-muted-foreground mx-auto mb-4" />
-          <h3 className="text-lg font-semibold">No DNK locations found</h3>
-          <p className="text-muted-foreground mt-2">Try another city, district or post office name.</p>
-          <Button variant="outline" className="mt-6" onClick={() => {
-            setSearchQuery('');
-            setRegionFilter('All');
-            setStatusFilter('All');
-            setTypeFilter('All');
-          }}>
-            Clear Filters
-          </Button>
+      </div>
+
+      {/* Main Content Area (Side-by-side on desktop) */}
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden bg-secondary/10">
+        
+        {/* Real Map Container */}
+        <div className="h-[400px] lg:h-full lg:flex-1 relative border-b lg:border-b-0 lg:border-r border-border">
+          <DNKMap 
+            locations={filteredLocations} 
+            selectedDNK={selectedDNK} 
+            onSelect={setSelectedDNK} 
+          />
+          
+          {/* Map Legend */}
+          <div className="absolute bottom-6 left-6 z-[1000] bg-background/95 backdrop-blur border border-border shadow-md rounded-lg p-3 text-xs pointer-events-none">
+            <div className="font-semibold mb-2">Map Legend</div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="size-3 rounded-full bg-success"></span>
+              <span>Verified DNK</span>
+            </div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="size-3 rounded-full bg-brand"></span>
+              <span>Verification Required</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="size-3 rounded-full bg-muted"></span>
+              <span>Historical Record</span>
+            </div>
+          </div>
         </div>
-      )}
+
+        {/* List Container */}
+        <div className="lg:w-[450px] xl:w-[500px] flex-none overflow-y-auto p-4 lg:p-6 bg-background">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="font-semibold text-lg">DNK Locations</h2>
+            <div className="text-xs text-muted-foreground flex items-center gap-1">
+              <MapPin className="size-3" />
+              {filteredLocations.filter(l => l.latitude && l.longitude).length} mapped
+            </div>
+          </div>
+          
+          {/* Results */}
+          {filteredLocations.length > 0 ? (
+            <div className="grid gap-4">
+              {filteredLocations.map(loc => (
+                <div key={loc.id} className={selectedDNK?.id === loc.id ? 'ring-2 ring-primary rounded-xl' : ''}>
+                  <DNKCard 
+                    location={loc} 
+                    onClick={() => setSelectedDNK(loc)} 
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20 bg-card rounded-xl border border-border shadow-sm">
+              <Info className="size-10 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-lg font-semibold">No DNK locations found</h3>
+              <p className="text-muted-foreground mt-2">Try another city, district or post office name.</p>
+              <Button variant="outline" className="mt-6" onClick={() => {
+                setSearchQuery('');
+                setRegionFilter('All');
+                setStatusFilter('All');
+                setTypeFilter('All');
+              }}>
+                Clear Filters
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+
+
+
+
 
       {/* Details Sheet */}
       <Sheet open={!!selectedDNK} onOpenChange={(o) => !o && setSelectedDNK(null)}>

@@ -59,13 +59,47 @@ const getTypeFromName = (name: string) => {
   return "Post Office";
 };
 
-export const INITIAL_DNK_LOCATIONS: DNKLocation[] = allLocations.map((loc, i) => ({
-  ...defaultMeta,
-  id: `dnk-${(i + 1).toString().padStart(3, "0")}`,
-  name: loc.name,
-  state: loc.state || defaultMeta.state,
-  district: loc.district,
-  city: loc.city,
-  postOfficeType: getTypeFromName(loc.name),
-  region: loc.region,
-}));
+const verifiedCoords: Record<string, { lat: number, lng: number }> = {
+  "Ahmedabad GPO": { lat: 23.0225, lng: 72.5714 },
+  "Surat IBC": { lat: 21.1702, lng: 72.8311 },
+  "Rajkot HO": { lat: 22.3039, lng: 70.8022 },
+  "Vadodara HO": { lat: 22.3072, lng: 73.1812 },
+  "Bhuj HO": { lat: 23.2420, lng: 69.6669 },
+  "Gandhinagar HO": { lat: 23.2156, lng: 72.6369 },
+  "Palanpur HO": { lat: 24.1724, lng: 72.4346 },
+  "Patan HO": { lat: 23.8493, lng: 72.1266 },
+  "Unjha SO": { lat: 23.8037, lng: 72.3965 },
+  "Himatnagar HO": { lat: 23.5979, lng: 72.9697 },
+  "Modasa SO": { lat: 23.4633, lng: 73.2996 },
+  "Anand HO": { lat: 22.5645, lng: 72.9289 },
+  "Nadiad HO": { lat: 22.6916, lng: 72.8634 },
+  "Godhra HO": { lat: 22.7759, lng: 73.6149 },
+  "Dahod HO": { lat: 22.8323, lng: 74.2568 },
+  "Jamnagar HO": { lat: 22.4707, lng: 70.0577 },
+  "Morbi MDG": { lat: 22.8130, lng: 70.8320 },
+  "Junagadh HO": { lat: 21.5222, lng: 70.4579 },
+  "Porbandar HO": { lat: 21.6417, lng: 69.6293 },
+  "Veraval SO": { lat: 20.9159, lng: 70.3629 },
+  "Amreli HO": { lat: 21.6032, lng: 71.2185 },
+  "Navsari HO": { lat: 20.9467, lng: 72.9520 },
+  "Vapi MDG": { lat: 20.3708, lng: 72.9056 },
+  "Silvassa MDG": { lat: 20.2763, lng: 73.0083 },
+  "Daman MDG": { lat: 20.3974, lng: 72.8328 },
+};
+
+export const INITIAL_DNK_LOCATIONS: DNKLocation[] = allLocations.map((loc, i) => {
+  const coords = verifiedCoords[loc.name];
+  return {
+    ...defaultMeta,
+    id: `dnk-${(i + 1).toString().padStart(3, "0")}`,
+    name: loc.name,
+    state: loc.state || defaultMeta.state,
+    district: loc.district,
+    city: loc.city,
+    postOfficeType: getTypeFromName(loc.name),
+    region: loc.region,
+    verificationStatus: coords ? "verified" : defaultMeta.verificationStatus,
+    latitude: coords ? coords.lat : defaultMeta.latitude,
+    longitude: coords ? coords.lng : defaultMeta.longitude,
+  };
+});
