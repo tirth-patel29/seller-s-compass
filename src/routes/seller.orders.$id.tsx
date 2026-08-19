@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { SellerLayout } from '@/components/SellerLayout'
+import { inr } from '@/lib/format'
 import { getOrderById, getExportOrderByOrderId, generateExportDocuments } from '@/services/mockServices'
 import { useEffect, useState } from 'react'
 import type { Order, ExportOrder } from '@/lib/types'
@@ -52,7 +53,7 @@ function SellerOrderDetail() {
               <h1 className="text-2xl font-bold text-foreground">Order #{order.id}</h1>
               <StatusBadge status={order.status} />
             </div>
-            <p className="text-sm text-muted-foreground">{new Date(order.date).toLocaleDateString()}</p>
+            <p className="text-sm text-muted-foreground">{new Date(order.createdAt).toLocaleDateString()}</p>
           </div>
         </div>
 
@@ -186,15 +187,25 @@ function SellerOrderDetail() {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Subtotal</span>
-                  <span>₹{order.unitPrice * order.quantity}</span>
+                  <span>{inr(order.sellerAmount)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Shipping</span>
-                  <span>₹{order.shipping}</span>
+                  <span>{inr(order.shippingAmount)}</span>
+                </div>
+                {order.dutyAmount > 0 && (
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Import Duty (DDP)</span>
+                    <span>{inr(order.dutyAmount)}</span>
+                  </div>
+                )}
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Platform Fees</span>
+                  <span>{inr(order.platformFee)}</span>
                 </div>
                 <div className="flex justify-between font-bold pt-2 border-t border-border mt-2">
                   <span>Total</span>
-                  <span>₹{order.total}</span>
+                  <span>{inr(order.total)}</span>
                 </div>
               </div>
             </div>

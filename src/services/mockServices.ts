@@ -65,7 +65,7 @@ export const getExportOrderByOrderId = async (orderId: string): Promise<ExportOr
   return state.exportOrders.find(eo => eo.orderId === orderId);
 };
 
-export const updateExportChecklist = async (orderId: string, checklist: Record<ChecklistKey, boolean>): Promise<ExportOrder | undefined> => {
+export const updateExportChecklist = async (orderId: string, checklist: Partial<ExportOrder['checklist']>): Promise<ExportOrder | undefined> => {
   const eo = state.exportOrders.find(e => e.orderId === orderId);
   if (eo) {
     eo.checklist = { ...eo.checklist, ...checklist };

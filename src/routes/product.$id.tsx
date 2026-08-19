@@ -5,6 +5,7 @@ import { EmptyState } from "@/components/States";
 import { Button } from "@/components/ui/button";
 import { inr } from "@/lib/format";
 import { useAppState } from "@/services/db";
+import { currencyService } from "@/services/currencyService";
 
 export const Route = createFileRoute("/product/$id")({
   head: () => ({
@@ -83,10 +84,17 @@ function ProductDetail() {
 
           <div>
             <h1 className="text-2xl font-bold text-foreground sm:text-3xl">{product.name}</h1>
-            <p className="mt-3 text-2xl font-semibold text-foreground">{inr(product.price)}</p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Price in INR · Duties and taxes calculated at checkout
-            </p>
+            
+            <div className="mt-4">
+              <p className="text-3xl font-bold text-foreground">
+                {currencyService.formatCurrency(currencyService.convertFromINR(product.price, "USD"), "USD")}
+              </p>
+              <p className="mt-1 text-sm text-muted-foreground flex items-center gap-1">
+                <span>{inr(product.price)}</span>
+                <span>·</span>
+                <span>Duties and taxes calculated at checkout</span>
+              </p>
+            </div>
 
             <dl className="mt-6 space-y-2 text-sm">
               <div className="flex gap-2">

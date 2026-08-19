@@ -26,7 +26,7 @@ function SellerProductDetail() {
             <h1 className="text-2xl font-bold text-foreground">{product.name}</h1>
           </div>
           <Button variant="outline" asChild className="gap-2">
-            <Link to="/seller/products/$id/edit" params={{ id }}><Edit className="size-4" /> Edit</Link>
+            <Link to="/seller/products"><Edit className="size-4" /> Edit</Link>
           </Button>
         </div>
 

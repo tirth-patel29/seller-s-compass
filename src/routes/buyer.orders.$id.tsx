@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { getOrderById } from '@/services/mockServices'
+import { currencyService } from '@/services/currencyService'
 import { useEffect, useState } from 'react'
 import type { Order } from '@/lib/types'
 import { ErrorState } from '@/components/shared/ErrorState'
@@ -58,18 +59,43 @@ function BuyerOrderDetail() {
           
           <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
             <h2 className="text-lg font-semibold mb-4">Payment Summary</h2>
-            <div className="space-y-2 text-sm">
+            <div className="space-y-3 text-sm">
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Subtotal</span>
-                <span>₹{order.unitPrice * order.quantity}</span>
+                <span className="text-muted-foreground">Product</span>
+                <div className="text-right">
+                  <div>{currencyService.formatCurrency(order.buyerAmount, order.buyerCurrency)}</div>
+                  <div className="text-xs text-muted-foreground">₹{order.sellerAmount}</div>
+                </div>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Shipping</span>
-                <span>₹{order.shipping}</span>
+                <div className="text-right">
+                  <div>{currencyService.formatCurrency(order.shippingAmount * order.exchangeRate, order.buyerCurrency)}</div>
+                  <div className="text-xs text-muted-foreground">₹{order.shippingAmount}</div>
+                </div>
               </div>
-              <div className="flex justify-between font-bold pt-2 border-t border-border">
+              {order.dutyAmount > 0 && (
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Import Duty (DDP)</span>
+                  <div className="text-right">
+                    <div>{currencyService.formatCurrency(order.dutyAmount * order.exchangeRate, order.buyerCurrency)}</div>
+                    <div className="text-xs text-muted-foreground">₹{order.dutyAmount}</div>
+                  </div>
+                </div>
+              )}
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Platform Fees</span>
+                <div className="text-right">
+                  <div>{currencyService.formatCurrency(order.platformFee * order.exchangeRate, order.buyerCurrency)}</div>
+                  <div className="text-xs text-muted-foreground">₹{order.platformFee}</div>
+                </div>
+              </div>
+              <div className="flex justify-between font-bold pt-2 border-t border-border mt-2 text-base">
                 <span>Total</span>
-                <span>₹{order.total}</span>
+                <div className="text-right">
+                  <div>{currencyService.formatCurrency(order.totalBuyerCurrency, order.buyerCurrency)}</div>
+                  <div className="text-xs font-normal text-muted-foreground mt-0.5">₹{order.total}</div>
+                </div>
               </div>
             </div>
           </div>

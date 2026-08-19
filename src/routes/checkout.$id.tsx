@@ -17,7 +17,9 @@ import {
 import { DESTINATIONS } from "@/data/seed";
 import { inr } from "@/lib/format";
 import { useAppState } from "@/services/db";
-import { orderService, SHIPPING_FLAT } from "@/services/orderService";
+import { orderService } from "@/services/orderService";
+import { currencyService } from "@/services/currencyService";
+import { shippingQuoteService } from "@/services/shippingQuoteService";
 import { useAuth } from "@/hooks/useAuth";
 
 export const Route = createFileRoute("/checkout/$id")({
@@ -65,9 +67,26 @@ function Checkout() {
     );
   }
 
-  const subtotal = product.price * quantity;
-  const fees = Math.round(subtotal * 0.05);
-  const total = subtotal + SHIPPING_FLAT + fees;
+  const subtotalINR = product.price * quantity;
+  const feesINR = Math.round(subtotalINR * 0.05);
+  
+  // Dynamic Quote
+  const quote = shippingQuoteService.getQuote({
+    originCountry: "India", // Default origin
+    destinationCountry: country,
+    weightKg: product.weightKg || 1,
+    productValueINR: subtotalINR,
+  });
+  
+  const [selectedShippingId, setSelectedShippingId] = useState(quote.options[0]?.id || "ems");
+  const selectedShipping = quote.options.find(o => o.id === selectedShippingId) || quote.options[0];
+  const shippingINR = selectedShipping?.basePostageINR || 0;
+  
+  const totalINR = subtotalINR + shippingINR + quote.dutiesINR + feesINR;
+
+  // Currencies
+  const buyerCurrency = currencyService.getCurrencyForCountry(country);
+  const fmt = (inrVal: number) => currencyService.formatCurrency(currencyService.convertFromINR(inrVal, buyerCurrency), buyerCurrency);
 
   const placeOrder = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,6 +99,10 @@ function Checkout() {
         buyerEmail: email,
         destinationCountry: country,
         address,
+        shippingOptionId: selectedShippingId,
+        shippingAmountINR: shippingINR,
+        dutyAmountINR: quote.dutiesINR,
+        buyerCurrency,
       });
       setOrderId(order.id);
       toast.success("Order confirmed");
@@ -166,11 +189,27 @@ function Checkout() {
           </section>
 
           <section className="rounded-xl border border-border bg-card p-6">
-            <h2 className="text-base font-semibold text-foreground">Shipping</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              International shipping via DNK-enabled postal export. Estimated delivery 9–14 days with
-              end-to-end tracking.
+            <h2 className="text-base font-semibold text-foreground">Shipping method</h2>
+            <p className="mt-2 text-sm text-muted-foreground mb-4">
+              International shipping rates are automatically calculated based on the destination and package weight ({product.weightKg || 1}kg).
             </p>
+            <div className="space-y-3">
+              {quote.options.map(opt => (
+                <label key={opt.id} className={`flex items-center justify-between rounded-lg border p-4 cursor-pointer transition-colors ${selectedShippingId === opt.id ? 'border-primary bg-primary/5' : 'border-border hover:bg-secondary/50'}`}>
+                  <div className="flex items-center gap-3">
+                    <input type="radio" name="shipping" value={opt.id} checked={selectedShippingId === opt.id} onChange={() => setSelectedShippingId(opt.id)} className="size-4 text-primary" />
+                    <div>
+                      <p className="font-medium">{opt.serviceName}</p>
+                      <p className="text-xs text-muted-foreground">Estimated delivery: {opt.estimatedDelivery}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-semibold">{fmt(opt.basePostageINR)}</p>
+                    <p className="text-xs text-muted-foreground">{inr(opt.basePostageINR)}</p>
+                  </div>
+                </label>
+              ))}
+            </div>
           </section>
 
           <section className="rounded-xl border border-border bg-card p-6">
@@ -192,22 +231,43 @@ function Checkout() {
               </p>
             </div>
           </div>
-          <dl className="mt-6 space-y-2 text-sm">
+          <dl className="mt-6 space-y-3 text-sm">
             <div className="flex justify-between">
-              <dt className="text-muted-foreground">Product price</dt>
-              <dd>{inr(subtotal)}</dd>
+              <dt className="text-muted-foreground">Product</dt>
+              <dd className="text-right">
+                <div>{fmt(subtotalINR)}</div>
+                <div className="text-xs text-muted-foreground">{inr(subtotalINR)}</div>
+              </dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-muted-foreground">Shipping</dt>
-              <dd>{inr(SHIPPING_FLAT)}</dd>
+              <dt className="text-muted-foreground">Shipping ({selectedShipping?.serviceName})</dt>
+              <dd className="text-right">
+                <div>{fmt(shippingINR)}</div>
+                <div className="text-xs text-muted-foreground">{inr(shippingINR)}</div>
+              </dd>
             </div>
+            {quote.dutiesINR > 0 && (
+              <div className="flex justify-between">
+                <dt className="text-muted-foreground">Estimated Import Duty (DDP)</dt>
+                <dd className="text-right">
+                  <div>{fmt(quote.dutiesINR)}</div>
+                  <div className="text-xs text-muted-foreground">{inr(quote.dutiesINR)}</div>
+                </dd>
+              </div>
+            )}
             <div className="flex justify-between">
-              <dt className="text-muted-foreground">Estimated fees</dt>
-              <dd>{inr(fees)}</dd>
+              <dt className="text-muted-foreground">Platform fees</dt>
+              <dd className="text-right">
+                <div>{fmt(feesINR)}</div>
+                <div className="text-xs text-muted-foreground">{inr(feesINR)}</div>
+              </dd>
             </div>
             <div className="flex justify-between border-t border-border pt-3 text-base font-semibold">
               <dt>Total</dt>
-              <dd>{inr(total)}</dd>
+              <dd className="text-right">
+                <div>{fmt(totalINR)}</div>
+                <div className="text-xs font-normal text-muted-foreground mt-0.5">{inr(totalINR)}</div>
+              </dd>
             </div>
           </dl>
           <Button type="submit" className="mt-6 w-full" size="lg" disabled={submitting}>

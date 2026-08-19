@@ -66,10 +66,32 @@ export interface Order {
   destinationCountry: string;
   address: string;
   quantity: number;
+  
+  // Base product unit price in INR
   unitPrice: number;
+  
+  // Multi-currency support
+  sellerAmount: number;
+  sellerCurrency: string;
+  buyerAmount: number;
+  buyerCurrency: string;
+  exchangeRate: number;
+  
+  shippingAmount: number;
+  shippingCurrency: string;
+  dutyAmount: number;
+  dutyCurrency: string;
+  platformFee: number;
+  platformFeeCurrency: string;
+
+  // Backward compatible fields (represent INR values)
   shipping: number;
   fees: number;
   total: number;
+  
+  // Total in buyer's currency
+  totalBuyerCurrency: number;
+
   status: OrderStatus;
   createdAt: string;
 }
@@ -124,6 +146,26 @@ export interface Shipment {
   events: TrackingEvent[];
 }
 
+export interface DNKLocation {
+  id: string;
+  name: string;
+  state: string;
+  district: string;
+  city: string;
+  postOfficeType: string;
+  mappedFpo: string;
+  source: string;
+  sourceYear: string;
+  verificationStatus: "verified" | "verification_required" | "historical";
+  latitude: number | null;
+  longitude: number | null;
+  pincode: string;
+  address: string;
+  services: string[];
+  notes: string;
+  region: "North Gujarat" | "Central Gujarat" | "Saurashtra & Kutch" | "South Gujarat" | "Gujarat Circle / Union Territory record";
+}
+
 export interface AppState {
   users: User[];
   sellers: Seller[];
@@ -131,5 +173,6 @@ export interface AppState {
   orders: Order[];
   exportOrders: ExportOrder[];
   shipments: Shipment[];
+  dnkLocations: DNKLocation[];
   currentUserId: string | null;
 }

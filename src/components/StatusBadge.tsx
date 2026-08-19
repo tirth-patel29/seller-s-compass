@@ -10,12 +10,12 @@ const MAP: Record<OrderStatus, { label: string; className: string }> = {
   delivered: { label: "Delivered", className: "bg-success/15 text-success" },
 };
 
-export function StatusBadge({ status, className }: { status: OrderStatus; className?: string }) {
-  const s = MAP[status];
+export function StatusBadge({ status, className }: { status: string; className?: string }) {
+  const s = MAP[status as OrderStatus] || { label: status.replace(/_/g, " "), className: "bg-secondary text-secondary-foreground" };
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium",
+        "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium capitalize",
         s.className,
         className,
       )}
