@@ -17,15 +17,21 @@ function ExportDocumentsPage() {
   const navigate = useNavigate()
   const [order, setOrder] = useState<Order | null>(null)
   const [exportOrder, setExportOrder] = useState<ExportOrder | null>(null)
+  const [product, setProduct] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     Promise.all([
       getOrderById(id),
       getExportOrderByOrderId(id)
-    ]).then(([o, eo]) => {
+    ]).then(async ([o, eo]) => {
       setOrder(o || null)
       setExportOrder(eo || null)
+      if (o) {
+        const { getProductById } = await import('@/services/mockServices')
+        const p = await getProductById(o.productId)
+        setProduct(p || null)
+      }
       setLoading(false)
     })
   }, [id])
@@ -86,7 +92,7 @@ function ExportDocumentsPage() {
               </div>
               <div>
                 <div class="label">Product / Contents</div>
-                <div class="value">${order.productId}</div>
+                <div class="value">${product ? product.name : order.productId}</div>
               </div>
               <div>
                 <div class="label">Declared Value</div>
@@ -162,7 +168,7 @@ function ExportDocumentsPage() {
               </div>
               <div>
                 <p className="text-muted-foreground">Product</p>
-                <p className="font-medium truncate">{order.productId}</p>
+                <p className="font-medium truncate">{product ? product.name : order.productId}</p>
               </div>
               <div>
                 <p className="text-muted-foreground">Value</p>

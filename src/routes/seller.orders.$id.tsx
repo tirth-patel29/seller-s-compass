@@ -17,6 +17,7 @@ function SellerOrderDetail() {
   const { id } = Route.useParams()
   const [order, setOrder] = useState<Order | null>(null)
   const [exportOrder, setExportOrder] = useState<ExportOrder | null>(null)
+  const [product, setProduct] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [generatingDocs, setGeneratingDocs] = useState(false)
 
@@ -24,9 +25,14 @@ function SellerOrderDetail() {
     Promise.all([
       getOrderById(id),
       getExportOrderByOrderId(id)
-    ]).then(([o, eo]) => {
+    ]).then(async ([o, eo]) => {
       setOrder(o || null)
       setExportOrder(eo || null)
+      if (o) {
+        const { getProductById } = await import('@/services/mockServices')
+        const p = await getProductById(o.productId)
+        setProduct(p || null)
+      }
       setLoading(false)
     })
   }, [id])
@@ -158,9 +164,11 @@ function SellerOrderDetail() {
               <h2 className="text-lg font-semibold mb-4">Order Items</h2>
               <div className="flex justify-between items-center py-2">
                 <div className="flex gap-4">
-                  <div className="size-16 rounded-md bg-secondary/50"></div>
+                  <div className="size-16 rounded-md bg-secondary/50 overflow-hidden">
+                    {product?.image && <img src={product.image} alt={product.name} className="w-full h-full object-cover" />}
+                  </div>
                   <div>
-                    <p className="font-medium">Product ID: {order.productId}</p>
+                    <p className="font-medium text-slate-800">{product ? product.name : `Product ID: ${order.productId}`}</p>
                     <p className="text-sm text-muted-foreground">Qty: {order.quantity}</p>
                   </div>
                 </div>

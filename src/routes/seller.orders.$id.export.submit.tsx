@@ -17,6 +17,7 @@ function SubmitDNKPage() {
   const navigate = useNavigate()
   const [order, setOrder] = useState<Order | null>(null)
   const [exportOrder, setExportOrder] = useState<ExportOrder | null>(null)
+  const [product, setProduct] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [successData, setSuccessData] = useState<{ exportOrder: ExportOrder, shipment: Shipment } | null>(null)
@@ -25,9 +26,14 @@ function SubmitDNKPage() {
     Promise.all([
       getOrderById(id),
       getExportOrderByOrderId(id)
-    ]).then(([o, eo]) => {
+    ]).then(async ([o, eo]) => {
       setOrder(o || null)
       setExportOrder(eo || null)
+      if (o) {
+        const { getProductById } = await import('@/services/mockServices')
+        const p = await getProductById(o.productId)
+        setProduct(p || null)
+      }
       setLoading(false)
     })
   }, [id])
@@ -134,7 +140,7 @@ function SubmitDNKPage() {
                   <Package className="size-5 text-slate-400 mt-0.5 shrink-0" />
                   <div>
                     <p className="text-sm font-medium text-slate-900">Product</p>
-                    <p className="text-sm text-slate-600">{order.productId}</p>
+                    <p className="text-sm text-slate-600 truncate max-w-[200px]" title={product ? product.name : order.productId}>{product ? product.name : order.productId}</p>
                   </div>
                 </div>
                 <div className="flex gap-3 items-start">

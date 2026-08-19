@@ -26,14 +26,29 @@ function BuyerOrderDetail() {
   
   if (!order) return <ErrorState description={`Order ${id} not found.`} />
 
-  // Create mock tracking events based on status
+  // Create tracking events based on unified status
   const events = [
     { date: "August 10", label: "Order Placed", description: "Order confirmed by seller" },
   ];
-  if (order.status !== "placed") events.push({ date: "August 12", label: "DNK Processing", description: "Seller submitted package to Dak Ghar Niryat Kendra" });
-  if (order.status === "customs" || order.status === "in_transit" || order.status === "delivered") events.push({ date: "August 14", label: "Customs Cleared", description: "Export customs processed" });
-  if (order.status === "in_transit" || order.status === "delivered") events.push({ date: "August 16", label: "International Dispatch", description: "Package en route to destination" });
-  if (order.status === "delivered") events.push({ date: "August 20", label: "Delivered", description: "Package delivered to buyer" });
+  
+  const statusLevels = {
+    placed: 0,
+    export_pending: 1,
+    export_ready: 2,
+    dnk_submitted: 3,
+    customs: 4,
+    in_transit: 5,
+    delivered: 6
+  };
+  
+  const currentLevel = statusLevels[order.status as keyof typeof statusLevels] || 0;
+
+  if (currentLevel >= 1) events.push({ date: "August 11", label: "Preparing for Export", description: "Seller is preparing international export documentation" });
+  if (currentLevel >= 2) events.push({ date: "August 11", label: "Export Ready", description: "Export processing completed" });
+  if (currentLevel >= 3) events.push({ date: "August 12", label: "DNK Processing", description: "Package submitted to Dak Ghar Niryat Kendra postal network" });
+  if (currentLevel >= 4) events.push({ date: "August 14", label: "Customs Cleared", description: "Export customs processed" });
+  if (currentLevel >= 5) events.push({ date: "August 16", label: "International Dispatch", description: "Package en route to destination" });
+  if (currentLevel >= 6) events.push({ date: "August 20", label: "Delivered", description: "Package delivered to buyer" });
 
   return (
     <div className="space-y-6 max-w-4xl">

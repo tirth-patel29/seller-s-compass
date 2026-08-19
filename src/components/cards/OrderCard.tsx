@@ -3,8 +3,12 @@ import { ChevronRight, Package, MapPin } from "lucide-react";
 import { inr } from "@/lib/format";
 import { StatusBadge } from "@/components/StatusBadge";
 import type { Order } from "@/lib/types";
+import { useAppState } from "@/services/db";
 
 export function OrderCard({ order, role = "seller" }: { order: Order; role?: "seller" | "buyer" | "admin" }) {
+  const { products } = useAppState();
+  const product = products.find(p => p.id === order.productId);
+  
   return (
     <div className="flex flex-col gap-3 rounded-xl border border-border bg-card p-5 shadow-card transition-shadow hover:shadow-elevated sm:flex-row sm:items-center sm:justify-between">
       <div className="flex flex-1 flex-col gap-1">
@@ -13,7 +17,7 @@ export function OrderCard({ order, role = "seller" }: { order: Order; role?: "se
           <StatusBadge status={order.status} />
         </div>
         <h3 className="text-base font-semibold text-foreground">
-          {order.quantity}x {order.productId}
+          {order.quantity}x {product ? product.name : order.productId}
         </h3>
         <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
           <MapPin className="size-3.5" />
