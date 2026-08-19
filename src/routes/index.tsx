@@ -32,31 +32,38 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const METRICS = [
-  { value: "1,000+", label: "DNKs" },
-  { value: "Verified", label: "Sellers" },
-  { value: "Worldwide", label: "International Shipping" },
-  { value: "End-to-End", label: "Tracking" },
-];
-
-const FEATURES = [
-  { icon: Globe2, title: "Global Marketplace", text: "Publish once and be discoverable by buyers in the US, UK, EU and beyond." },
-  { icon: BadgeCheck, title: "Seller Verification", text: "Identity, business and origin signals that international buyers can trust." },
-  { icon: Sparkles, title: "AI Product Assistant", text: "Turn a few words into an export-ready listing with title, description and keywords." },
-  { icon: ClipboardCheck, title: "Export Readiness", text: "A guided checklist that turns a normal order into an export-ready package." },
-  { icon: Building2, title: "DNK Workflow", text: "Submit the export request to a Dak Ghar Niryat Kendra and get a PBE reference." },
-  { icon: Truck, title: "Shipment Tracking", text: "One timeline from DNK submission to international delivery, for seller and buyer." },
-];
-
-const STEPS = [
-  { n: "01", title: "List", text: "Add your product with AI-assisted content." },
-  { n: "02", title: "Sell", text: "International buyers discover and order." },
-  { n: "03", title: "Export", text: "Complete readiness and submit to DNK." },
-  { n: "04", title: "Deliver", text: "Track the shipment until it lands." },
-];
-
 function Landing() {
   const { t } = useTranslation();
+
+  const METRICS = [
+    { value: "1,000+", label: t("landing.stats.dnks") || "DNKs" },
+    { value: "Verified", label: t("landing.stats.verified_sellers") || "Sellers" },
+    { value: "Worldwide", label: t("landing.stats.international_shipping") || "International Shipping" },
+    { value: "End-to-End", label: t("landing.stats.tracking") || "Tracking" },
+  ];
+
+  const FEATURES = [
+    { icon: Globe2, title: "Global Marketplace", text: "Publish once and be discoverable by buyers in the US, UK, EU and beyond." },
+    { icon: BadgeCheck, title: "Seller Verification", text: "Identity, business and origin signals that international buyers can trust." },
+    { icon: Sparkles, title: "AI Product Assistant", text: "Turn a few words into an export-ready listing with title, description and keywords." },
+    { icon: ClipboardCheck, title: "Export Readiness", text: "A guided checklist that turns a normal order into an export-ready package." },
+    { icon: Building2, title: "DNK Workflow", text: "Submit the export request to a Dak Ghar Niryat Kendra and get a PBE reference." },
+    { icon: Truck, title: "Shipment Tracking", text: "One timeline from DNK submission to international delivery, for seller and buyer." },
+  ];
+
+  const STEPS = [
+    { n: "01", title: "List", text: "Add your product with AI-assisted content." },
+    { n: "02", title: "Sell", text: "International buyers discover and order." },
+    { n: "03", title: "Export", text: "Complete readiness and submit to DNK." },
+    { n: "04", title: "Deliver", text: "Track the shipment until it lands." },
+  ];
+
+  const WORKFLOW_STEPS = [
+    t("landing.workflow.indian_seller") || "Indian Seller",
+    t("landing.workflow.international_buyer") || "International Buyer",
+    t("landing.workflow.dnk") || "DNK",
+    t("landing.workflow.global_delivery") || "Global Delivery"
+  ];
 
   return (
     <MarketplaceLayout>
@@ -103,7 +110,7 @@ function Landing() {
               className="w-full rounded-2xl border border-border object-cover shadow-elevated"
             />
             <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-border bg-card p-4 text-xs font-medium text-muted-foreground">
-              {["Indian Seller", "International Buyer", "DNK", "Global Delivery"].map((s, i) => (
+              {WORKFLOW_STEPS.map((s, i) => (
                 <span key={s} className="flex items-center gap-2">
                   <span className="rounded-full bg-secondary px-2.5 py-1 text-foreground">{s}</span>
                   {i < 3 && <ArrowRight className="size-3.5" aria-hidden="true" />}
@@ -116,7 +123,7 @@ function Landing() {
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
         <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
-          Everything a small exporter needs to go global.
+          {t("landing.features.title") || "Everything a small exporter needs to go global."}
         </h2>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f) => (
@@ -131,7 +138,7 @@ function Landing() {
 
       <section id="how-it-works" className="border-t border-border bg-surface">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <h2 className="text-2xl font-bold text-foreground sm:text-3xl">How it works</h2>
+          <h2 className="text-2xl font-bold text-foreground sm:text-3xl">{t("landing.how_it_works.title") || "How it works"}</h2>
           <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s) => (
               <li key={s.n} className="rounded-xl border border-border bg-card p-6">
