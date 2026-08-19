@@ -2,8 +2,14 @@ import { Link } from "@tanstack/react-router";
 import { BadgeCheck, Plane } from "lucide-react";
 import { inr } from "@/lib/format";
 import type { Product, Seller } from "@/lib/types";
+import { currencyService } from "@/services/currencyService";
+import { usePreferences } from "@/hooks/usePreferences";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export function ProductCard({ product, seller }: { product: Product; seller?: Seller | undefined }) {
+  const { currency } = usePreferences();
+  const { t } = useTranslation();
+
   return (
     <Link
       to="/product/$id"
@@ -22,7 +28,7 @@ export function ProductCard({ product, seller }: { product: Product; seller?: Se
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4">
         <h3 className="line-clamp-2 text-sm font-semibold text-foreground">{product.name}</h3>
-        <p className="text-base font-semibold text-foreground">{inr(product.price)}</p>
+        <p className="text-base font-semibold text-foreground">{currencyService.formatConvertedPrice(product.price, currency)}</p>
         <p className="text-xs text-muted-foreground">
           {product.origin} · {seller?.name ?? "DNK Seller"}
         </p>

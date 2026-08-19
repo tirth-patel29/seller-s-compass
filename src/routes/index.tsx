@@ -11,6 +11,7 @@ import {
 import heroImage from "@/assets/hero.jpg";
 import { MarketplaceLayout } from "@/components/MarketplaceLayout";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -55,29 +56,30 @@ const STEPS = [
 ];
 
 function Landing() {
+  const { t } = useTranslation();
+
   return (
     <MarketplaceLayout>
       <section className="border-b border-border bg-surface">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-24">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-3 py-1 text-xs font-medium text-brand-foreground">
-              DNK-enabled export platform · Prototype
+              {t("landing.prototype_badge") || "DNK-enabled export platform · Prototype"}
             </span>
             <h1 className="mt-5 text-4xl font-bold leading-tight text-foreground sm:text-5xl">
-              Take Your Products From India to the World.
+              {t("landing.hero_title") || "Take Your Products From India to the World."}
             </h1>
             <p className="mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
-              Create your digital storefront, reach international buyers and simplify your export
-              journey through DNK-enabled logistics.
+              {t("landing.hero_subtitle") || "Create your digital storefront, reach international buyers and simplify your export journey through DNK-enabled logistics."}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg">
                 <Link to="/login">
-                  Start Selling <ArrowRight />
+                  {t("landing.start_selling") || "Start Selling"} <ArrowRight />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link to="/marketplace">Explore Products</Link>
+                <Link to="/marketplace">{t("landing.explore_products") || "Explore Products"}</Link>
               </Button>
             </div>
 

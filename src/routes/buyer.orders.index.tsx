@@ -4,6 +4,7 @@ import { EmptyState } from '@/components/shared/EmptyState'
 import { useEffect, useState } from 'react'
 import type { Order } from '@/lib/types'
 import { initialState } from '@/data/seed'
+import { useTranslation } from "@/hooks/useTranslation";
 
 export const Route = createFileRoute('/buyer/orders/')({
   component: BuyerOrdersList,
@@ -11,6 +12,7 @@ export const Route = createFileRoute('/buyer/orders/')({
 
 function BuyerOrdersList() {
   const [orders, setOrders] = useState<Order[]>([])
+  const { t } = useTranslation();
   
   useEffect(() => {
     // Mock getting orders for buyer
@@ -22,8 +24,8 @@ function BuyerOrdersList() {
   return (
     <div className="space-y-6 max-w-4xl">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">My Orders</h1>
-        <p className="text-muted-foreground">View and track your global purchases.</p>
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">{t("buyer.orders.title") || "My Orders"}</h1>
+        <p className="text-muted-foreground">{t("buyer.orders.subtitle") || "View and track your global purchases."}</p>
       </div>
 
       {orders.length > 0 ? (
@@ -34,9 +36,9 @@ function BuyerOrdersList() {
         </div>
       ) : (
         <EmptyState 
-          title="No orders yet" 
-          description="You haven't placed any orders. Discover authentic products from India." 
-          actionText="Browse Marketplace"
+          title={t("buyer.orders.empty_title") || "No orders yet"} 
+          description={t("buyer.orders.empty_desc") || "You haven't placed any orders. Discover authentic products from India."} 
+          actionText={t("buyer.orders.empty_action") || "Browse Marketplace"}
           actionUrl="/marketplace"
         />
       )}

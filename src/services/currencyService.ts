@@ -5,8 +5,8 @@
 
 const RATES: Record<string, number> = {
   USD: 95.70, // 1 USD = 95.70 INR
-  GBP: 118.50,
-  EUR: 102.20,
+  GBP: 127.00,
+  EUR: 109.00,
   CAD: 70.30,
   AUD: 62.10,
   INR: 1.0,
@@ -47,6 +47,12 @@ export const currencyService = {
       style: "currency",
       currency,
     }).format(amount);
+  },
+
+  /** Convert INR to target currency and format */
+  formatConvertedPrice(amountINR: number, targetCurrency: string): string {
+    const converted = this.convertFromINR(amountINR, targetCurrency);
+    return this.formatCurrency(converted, targetCurrency);
   },
 
   /** Get the prototype rate to display (e.g., 95.70 for USD) */

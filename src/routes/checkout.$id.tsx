@@ -21,6 +21,8 @@ import { orderService } from "@/services/orderService";
 import { currencyService } from "@/services/currencyService";
 import { shippingQuoteService } from "@/services/shippingQuoteService";
 import { useAuth } from "@/hooks/useAuth";
+import { useTranslation } from "@/hooks/useTranslation";
+import { usePreferences } from "@/hooks/usePreferences";
 
 export const Route = createFileRoute("/checkout/$id")({
   head: () => ({
@@ -39,6 +41,8 @@ function Checkout() {
   const state = useAppState();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { t } = useTranslation();
+  const { currency } = usePreferences();
   const product = state.products.find((p) => p.id === id);
 
   const [name, setName] = useState(user?.role === "buyer" ? user.name : "Emily Carter");
@@ -84,9 +88,9 @@ function Checkout() {
   
   const totalINR = subtotalINR + shippingINR + quote.dutiesINR + feesINR;
 
-  // Currencies
-  const buyerCurrency = currencyService.getCurrencyForCountry(country);
-  const fmt = (inrVal: number) => currencyService.formatCurrency(currencyService.convertFromINR(inrVal, buyerCurrency), buyerCurrency);
+  // Global Currency Preference
+  const buyerCurrency = currency;
+  const fmt = (inrVal: number) => currencyService.formatConvertedPrice(inrVal, buyerCurrency);
 
   const placeOrder = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -142,7 +146,7 @@ function Checkout() {
     <MarketplaceLayout>
       <form onSubmit={placeOrder} className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_360px]">
         <div className="space-y-6">
-          <h1 className="text-2xl font-bold text-foreground">Checkout</h1>
+          <h1 className="text-2xl font-bold text-foreground">{t("checkout.title") || "Checkout"}</h1>
 
           <section className="rounded-xl border border-border bg-card p-6">
             <h2 className="text-base font-semibold text-foreground">Shipping address</h2>
@@ -233,45 +237,45 @@ function Checkout() {
           </div>
           <dl className="mt-6 space-y-3 text-sm">
             <div className="flex justify-between">
-              <dt className="text-muted-foreground">Product</dt>
+              <dt className="text-muted-foreground">{t("checkout.product") || "Product"}</dt>
               <dd className="text-right">
                 <div>{fmt(subtotalINR)}</div>
-                <div className="text-xs text-muted-foreground">{inr(subtotalINR)}</div>
+                {currency !== "INR" && <div className="text-xs text-muted-foreground">≈ {inr(subtotalINR)} INR</div>}
               </dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-muted-foreground">Shipping ({selectedShipping?.serviceName})</dt>
+              <dt className="text-muted-foreground">{t("checkout.shipping") || "Shipping"} ({selectedShipping?.serviceName})</dt>
               <dd className="text-right">
                 <div>{fmt(shippingINR)}</div>
-                <div className="text-xs text-muted-foreground">{inr(shippingINR)}</div>
+                {currency !== "INR" && <div className="text-xs text-muted-foreground">≈ {inr(shippingINR)} INR</div>}
               </dd>
             </div>
             {quote.dutiesINR > 0 && (
               <div className="flex justify-between">
-                <dt className="text-muted-foreground">Estimated Import Duty (DDP)</dt>
+                <dt className="text-muted-foreground">{t("checkout.import_duty") || "Estimated Import Duty"} (DDP)</dt>
                 <dd className="text-right">
                   <div>{fmt(quote.dutiesINR)}</div>
-                  <div className="text-xs text-muted-foreground">{inr(quote.dutiesINR)}</div>
+                  {currency !== "INR" && <div className="text-xs text-muted-foreground">≈ {inr(quote.dutiesINR)} INR</div>}
                 </dd>
               </div>
             )}
             <div className="flex justify-between">
-              <dt className="text-muted-foreground">Platform fees</dt>
+              <dt className="text-muted-foreground">{t("checkout.platform_fees") || "Platform fees"}</dt>
               <dd className="text-right">
                 <div>{fmt(feesINR)}</div>
-                <div className="text-xs text-muted-foreground">{inr(feesINR)}</div>
+                {currency !== "INR" && <div className="text-xs text-muted-foreground">≈ {inr(feesINR)} INR</div>}
               </dd>
             </div>
             <div className="flex justify-between border-t border-border pt-3 text-base font-semibold">
-              <dt>Total</dt>
+              <dt>{t("checkout.total") || "Total"}</dt>
               <dd className="text-right">
                 <div>{fmt(totalINR)}</div>
-                <div className="text-xs font-normal text-muted-foreground mt-0.5">{inr(totalINR)}</div>
+                {currency !== "INR" && <div className="text-xs font-normal text-muted-foreground mt-0.5">≈ {inr(totalINR)} INR</div>}
               </dd>
             </div>
           </dl>
           <Button type="submit" className="mt-6 w-full" size="lg" disabled={submitting}>
-            {submitting && <Loader2 className="animate-spin" />} Place Order
+            {submitting && <Loader2 className="animate-spin" />} {t("checkout.place_order") || "Place Order"}
           </Button>
           <p className="mt-3 text-xs text-muted-foreground">
             By placing the order you agree to origin declaration for customs purposes.

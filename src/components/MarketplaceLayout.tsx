@@ -7,18 +7,21 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/useAuth";
 import { authService } from "@/services/authService";
-
-const NAV = [
-  { label: "Explore", to: "/marketplace" as const },
-  { label: "Categories", to: "/marketplace" as const, search: { view: "categories" } },
-  { label: "Verified Sellers", to: "/marketplace" as const, search: { verified: "true" } },
-  { label: "How It Works", to: "/" as const, hash: "how-it-works" as string | undefined },
-];
+import { useTranslation } from "@/hooks/useTranslation";
+import { LanguageSelector, CurrencySelector } from "@/components/shared/PreferenceSelectors";
 
 export function MarketplaceLayout({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { t } = useTranslation();
   const [q, setQ] = useState("");
+
+  const NAV = [
+    { label: t("nav.explore"), to: "/marketplace" as const },
+    { label: t("nav.categories"), to: "/marketplace" as const, search: { view: "categories" } },
+    { label: t("nav.verified_sellers"), to: "/marketplace" as const, search: { verified: "true" } },
+    { label: t("nav.how_it_works"), to: "/" as const, hash: "how-it-works" as string | undefined },
+  ];
 
   const submitSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,7 +54,7 @@ export function MarketplaceLayout({ children }: { children: ReactNode }) {
           </nav>
           <form onSubmit={submitSearch} className="ml-auto hidden w-64 md:block" role="search">
             <label htmlFor="site-search" className="sr-only">
-              Search products
+              {t("nav.search_products")}
             </label>
             <div className="relative">
               <Search
@@ -62,25 +65,29 @@ export function MarketplaceLayout({ children }: { children: ReactNode }) {
                 id="site-search"
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="Search products"
+                placeholder={t("nav.search_products")}
                 className="pl-9"
               />
             </div>
           </form>
+          <div className="hidden lg:flex items-center gap-2">
+            <LanguageSelector />
+            <CurrencySelector />
+          </div>
           <div className="ml-auto flex items-center gap-2 md:ml-0">
             {user ? (
               <>
                 {user.role === "seller" && (
                   <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
                     <Link to="/seller/dashboard">
-                      <LayoutDashboard /> Dashboard
+                      <LayoutDashboard /> {t("nav.dashboard")}
                     </Link>
                   </Button>
                 )}
                 {user.role === "buyer" && (
                   <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
                     <Link to="/buyer/orders">
-                      <Package /> My Orders
+                      <Package /> {t("nav.my_orders")}
                     </Link>
                   </Button>
                 )}
@@ -93,12 +100,12 @@ export function MarketplaceLayout({ children }: { children: ReactNode }) {
                     navigate({ to: "/" });
                   }}
                 >
-                  <LogOut /> <span className="sr-only sm:not-sr-only">Sign out</span>
+                  <LogOut /> <span className="sr-only sm:not-sr-only">{t("nav.sign_out")}</span>
                 </Button>
               </>
             ) : (
               <Button asChild size="sm">
-                <Link to="/login">Login</Link>
+                <Link to="/login">{t("nav.login")}</Link>
               </Button>
             )}
             <Sheet>
@@ -108,7 +115,11 @@ export function MarketplaceLayout({ children }: { children: ReactNode }) {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-72">
-                <SheetTitle className="mb-6">Menu</SheetTitle>
+                <SheetTitle className="mb-6">{t("nav.menu")}</SheetTitle>
+                <div className="mb-6 flex flex-col gap-3">
+                  <LanguageSelector />
+                  <CurrencySelector />
+                </div>
                 <nav aria-label="Mobile" className="flex flex-col gap-4">
                   {links}
                 </nav>

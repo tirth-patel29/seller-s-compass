@@ -17,17 +17,31 @@ function ShipmentTrackingPage() {
   const { id } = Route.useParams()
   const [shipment, setShipment] = useState<Shipment | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
-    // using shipmentService to match timeline logic
-    shipmentService.getTracking(id).then(s => {
-      setShipment(s || null)
-      setLoading(false)
-    })
+    let isMounted = true;
+    
+    const fetchTracking = async () => {
+      setLoading(true);
+      setError(false);
+      try {
+        const s = await shipmentService.getTracking(id);
+        if (isMounted) setShipment(s || null);
+      } catch (err) {
+        if (isMounted) setError(true);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+    
+    fetchTracking();
+    
+    return () => { isMounted = false; };
   }, [id])
 
   if (loading) return <SellerLayout><div className="p-8 text-center animate-pulse">Loading...</div></SellerLayout>
-  if (!shipment) return <SellerLayout><ErrorState description={`Shipment ${id} not found.`} /></SellerLayout>
+  if (error || !shipment) return <SellerLayout><ErrorState description={`Shipment ${id} not found.`} /></SellerLayout>
 
   return (
     <SellerLayout>

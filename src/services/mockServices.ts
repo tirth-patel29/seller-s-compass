@@ -135,7 +135,13 @@ export const generateExportDocuments = async (orderId: string): Promise<ExportOr
     
     const newExportOrders = [...prev.exportOrders];
     const current = newExportOrders[eoIndex] as ExportOrder;
-    newExportOrders[eoIndex] = { ...current, documentsGenerated: true } as ExportOrder;
+    newExportOrders[eoIndex] = {
+      ...current,
+      documentsGenerated: true,
+      documentGeneratedAt: new Date().toISOString(),
+      documentFileName: `DNK-${orderId}-Export-Package.pdf`,
+      documentStatus: "generated"
+    } as ExportOrder;
     updatedEo = newExportOrders[eoIndex] as ExportOrder;
     return { ...prev, exportOrders: newExportOrders };
   });

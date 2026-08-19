@@ -8,6 +8,8 @@ import type { Order, ExportOrder } from '@/lib/types'
 import { ErrorState } from '@/components/shared/ErrorState'
 import { toast } from 'sonner'
 
+import { documentService } from '@/services/documentService'
+
 export const Route = createFileRoute('/seller/orders/$id/export/documents')({
   component: ExportDocumentsPage,
 })
@@ -46,80 +48,35 @@ function ExportDocumentsPage() {
     { name: "DNK Shipment Information", id: "dnk" },
   ]
 
+  const generatePdfBlob = () => {
+    if (!order || !exportOrder || !product) return null;
+    return documentService.generateExportPackagePdf(order, exportOrder, product);
+  };
+
   const handlePreview = () => {
-    toast.success("Generating export documents...")
-    
-    // Create a printable window
-    const printWindow = window.open('', '_blank')
-    if (!printWindow) {
-      toast.error("Please allow popups to view documents")
-      return
+    try {
+      const doc = generatePdfBlob();
+      if (!doc) throw new Error("Missing data");
+      
+      const blobUrl = doc.output('bloburl');
+      window.open(blobUrl, '_blank');
+    } catch (e) {
+      toast.error("Unable to preview export documents");
     }
+  };
 
-    const html = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>Export Documents - Order #${id}</title>
-          <style>
-            body { font-family: system-ui, sans-serif; padding: 40px; color: #1e293b; }
-            .header { border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px; }
-            .title { font-size: 24px; font-weight: bold; }
-            .meta { color: #64748b; margin-top: 10px; }
-            .section { margin-bottom: 40px; }
-            .section-title { font-size: 18px; font-weight: bold; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 15px; }
-            .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-            .label { font-size: 12px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
-            .value { font-weight: 500; margin-top: 4px; }
-            @media print {
-              body { padding: 0; }
-              @page { margin: 2cm; }
-            }
-          </style>
-        </head>
-        <body>
-          <div class="header">
-            <div class="title">Dak Ghar Niryat Kendra - Export Package</div>
-            <div class="meta">Order Reference: #${id} | Generated: ${new Date().toLocaleDateString()}</div>
-          </div>
-          
-          <div class="section">
-            <div class="section-title">Commercial Invoice & Package Summary</div>
-            <div class="grid">
-              <div>
-                <div class="label">Destination Country</div>
-                <div class="value">${order.destinationCountry}</div>
-              </div>
-              <div>
-                <div class="label">Product / Contents</div>
-                <div class="value">${product ? product.name : order.productId}</div>
-              </div>
-              <div>
-                <div class="label">Declared Value</div>
-                <div class="value">INR ₹${order.total}</div>
-              </div>
-              <div>
-                <div class="label">Gross Weight</div>
-                <div class="value">${exportOrder.packageInfo.weight} kg</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="section">
-            <div class="section-title">Customs Declaration</div>
-            <p>I certify that the particulars given in this customs declaration are correct and that this item does not contain any dangerous article or articles prohibited by legislation or by postal or customs regulations.</p>
-          </div>
-          
-          <script>
-            window.onload = () => window.print();
-          </script>
-        </body>
-      </html>
-    `
-    
-    printWindow.document.write(html)
-    printWindow.document.close()
-  }
+  const handleDownload = () => {
+    try {
+      const doc = generatePdfBlob();
+      if (!doc) throw new Error("Missing data");
+      
+      const fileName = exportOrder.documentFileName || `DNK-${order.id}-Export-Package.pdf`;
+      doc.save(fileName);
+      toast.success("Document downloaded successfully");
+    } catch (e) {
+      toast.error("Unable to download export documents");
+    }
+  };
 
   return (
     <SellerLayout>
@@ -187,7 +144,10 @@ function ExportDocumentsPage() {
             </Button>
             <div className="space-x-3">
               <Button variant="secondary" onClick={handlePreview}>
-                Preview Documents
+                Preview PDF
+              </Button>
+              <Button variant="outline" onClick={handleDownload}>
+                Download PDF
               </Button>
               <Button asChild className="bg-slate-800 hover:bg-slate-700 text-white">
                 <Link to="/seller/orders/$id/export/submit" params={{ id }}>Continue to DNK</Link>

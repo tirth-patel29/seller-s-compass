@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { inr } from "@/lib/format";
 import { useAppState } from "@/services/db";
 import { currencyService } from "@/services/currencyService";
+import { useTranslation } from "@/hooks/useTranslation";
+import { usePreferences } from "@/hooks/usePreferences";
 
 export const Route = createFileRoute("/product/$id")({
   head: () => ({
@@ -30,6 +32,9 @@ function ProductDetail() {
   const { id } = Route.useParams();
   const navigate = useNavigate();
   const state = useAppState();
+  const { t } = useTranslation();
+  const { currency } = usePreferences();
+  
   const product = state.products.find((p) => p.id === id);
   const seller = state.sellers.find((s) => s.id === product?.sellerId);
 
@@ -87,13 +92,20 @@ function ProductDetail() {
             
             <div className="mt-4">
               <p className="text-3xl font-bold text-foreground">
-                {currencyService.formatCurrency(currencyService.convertFromINR(product.price, "USD"), "USD")}
+                {currencyService.formatConvertedPrice(product.price, currency)}
               </p>
-              <p className="mt-1 text-sm text-muted-foreground flex items-center gap-1">
-                <span>{inr(product.price)}</span>
-                <span>·</span>
-                <span>Duties and taxes calculated at checkout</span>
-              </p>
+              {currency !== "INR" && (
+                <p className="mt-1 text-sm text-muted-foreground flex items-center gap-1">
+                  <span>≈ {inr(product.price)} INR</span>
+                  <span>·</span>
+                  <span>Duties and taxes calculated at checkout</span>
+                </p>
+              )}
+              {currency === "INR" && (
+                <p className="mt-1 text-sm text-muted-foreground flex items-center gap-1">
+                  <span>Duties and taxes calculated at checkout</span>
+                </p>
+              )}
             </div>
 
             <dl className="mt-6 space-y-2 text-sm">
@@ -131,10 +143,10 @@ function ProductDetail() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Button size="lg" onClick={() => navigate({ to: "/checkout/$id", params: { id: product.id } })}>
-                Buy Now <ArrowRight />
+                {t("product.buy_now") || "Buy Now"} <ArrowRight />
               </Button>
               <Button size="lg" variant="outline" onClick={() => navigate({ to: "/checkout/$id", params: { id: product.id } })}>
-                Add to Cart
+                {t("product.add_to_cart") || "Add to Cart"}
               </Button>
             </div>
 
@@ -209,7 +221,7 @@ function ProductDetail() {
                 >
                   <img src={p.image} alt={p.name} loading="lazy" width={900} height={900} className="aspect-square w-full rounded-lg object-cover" />
                   <p className="mt-2 line-clamp-1 text-sm font-medium">{p.name}</p>
-                  <p className="text-sm text-muted-foreground">{inr(p.price)}</p>
+                  <p className="text-sm text-muted-foreground">{currencyService.formatConvertedPrice(p.price, currency)}</p>
                 </Link>
               ))}
             </div>

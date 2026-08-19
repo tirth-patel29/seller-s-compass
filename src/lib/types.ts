@@ -113,6 +113,9 @@ export interface ExportOrder {
   exportInfo: { hsCode: string; declaredValue: string; purpose: string };
   documents: { invoice: boolean; originDeclaration: boolean };
   documentsGenerated?: boolean;
+  documentGeneratedAt?: string;
+  documentFileName?: string;
+  documentStatus?: "generated";
   dnk: string;
   pbeRef?: string;
   status: "draft" | "submitted" | "customs" | "cleared";

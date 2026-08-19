@@ -7,6 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CATEGORIES } from "@/data/seed";
 import { useAppState } from "@/services/db";
+import { useTranslation } from "@/hooks/useTranslation";
+import { usePreferences } from "@/hooks/usePreferences";
+import { currencyService } from "@/services/currencyService";
 
 interface MarketplaceSearch {
   q?: string | undefined;
@@ -41,16 +44,18 @@ export const Route = createFileRoute("/marketplace")({
   component: Marketplace,
 });
 
-const PRICE_BANDS = [
-  { label: "Under ₹1,000", value: 1000 },
-  { label: "Under ₹2,500", value: 2500 },
-  { label: "Under ₹5,000", value: 5000 },
-];
-
 function Marketplace() {
   const search = Route.useSearch();
   const navigate = useNavigate({ from: "/marketplace" });
   const state = useAppState();
+  const { t } = useTranslation();
+  const { currency } = usePreferences();
+
+  const PRICE_BANDS = [
+    { label: `Under ${currencyService.formatConvertedPrice(1000, currency)}`, value: 1000 },
+    { label: `Under ${currencyService.formatConvertedPrice(2500, currency)}`, value: 2500 },
+    { label: `Under ${currencyService.formatConvertedPrice(5000, currency)}`, value: 5000 },
+  ];
 
   const setSearch = (patch: Partial<MarketplaceSearch>) =>
     navigate({ search: (prev) => ({ ...prev, ...patch }) });
@@ -77,10 +82,9 @@ function Marketplace() {
     <MarketplaceLayout>
       <div className="border-b border-border bg-surface">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
-          <h1 className="text-3xl font-bold text-foreground">Marketplace</h1>
+          <h1 className="text-3xl font-bold text-foreground">{t("marketplace.title") || "Marketplace"}</h1>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            Handmade products from verified Indian artisans and MSMEs, ready for international
-            shipping with full tracking.
+            {t("marketplace.subtitle") || "Handmade products from verified Indian artisans and MSMEs, ready for international shipping with full tracking."}
           </p>
           <div className="relative mt-6 max-w-xl">
             <label htmlFor="marketplace-search" className="sr-only">
@@ -196,7 +200,7 @@ function Marketplace() {
           </p>
           {products.length === 0 ? (
             <EmptyState
-              title="No products match these filters"
+              title={t("marketplace.empty") || "No products match these filters"}
               description="Try clearing a filter or searching for a different craft."
               action={<Button onClick={() => navigate({ search: {} })}>Clear filters</Button>}
             />

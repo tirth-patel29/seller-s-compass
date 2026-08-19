@@ -4,10 +4,17 @@ import { inr } from "@/lib/format";
 import { StatusBadge } from "@/components/StatusBadge";
 import type { Order } from "@/lib/types";
 import { useAppState } from "@/services/db";
+import { usePreferences } from "@/hooks/usePreferences";
+import { currencyService } from "@/services/currencyService";
 
 export function OrderCard({ order, role = "seller" }: { order: Order; role?: "seller" | "buyer" | "admin" }) {
   const { products } = useAppState();
   const product = products.find(p => p.id === order.productId);
+  const { currency } = usePreferences();
+  
+  const displayTotal = role === "buyer" 
+    ? currencyService.formatConvertedPrice(order.total, currency) 
+    : inr(order.total);
   
   return (
     <div className="flex flex-col gap-3 rounded-xl border border-border bg-card p-5 shadow-card transition-shadow hover:shadow-elevated sm:flex-row sm:items-center sm:justify-between">
@@ -27,7 +34,10 @@ export function OrderCard({ order, role = "seller" }: { order: Order; role?: "se
       </div>
       <div className="flex items-center justify-between gap-4 sm:flex-col sm:items-end">
         <div className="text-right">
-          <p className="text-lg font-bold text-foreground">{inr(order.total)}</p>
+          <p className="text-lg font-bold text-foreground">{displayTotal}</p>
+          {role === "buyer" && currency !== "INR" && (
+            <p className="text-xs text-muted-foreground mb-0.5">≈ {inr(order.total)} INR</p>
+          )}
           <p className="text-xs text-muted-foreground">
             {new Date(order.createdAt).toLocaleDateString()}
           </p>
