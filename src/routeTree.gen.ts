@@ -297,15 +297,15 @@ const SellerOrdersIdExportIndexRoute =
   } as any)
 const SellerOrdersIdExportDocumentsRoute =
   SellerOrdersIdExportDocumentsRouteImport.update({
-    id: '/documents',
-    path: '/documents',
-    getParentRoute: () => SellerOrdersIdExportRoute,
+    id: '/seller/orders/$id/export/documents',
+    path: '/seller/orders/$id/export/documents',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const SellerOrdersIdExportSubmitRoute =
   SellerOrdersIdExportSubmitRouteImport.update({
-    id: '/submit',
-    path: '/submit',
-    getParentRoute: () => SellerOrdersIdExportRoute,
+    id: '/seller/orders/$id/export/submit',
+    path: '/seller/orders/$id/export/submit',
+    getParentRoute: () => rootRouteImport,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -648,6 +648,8 @@ export interface RootRouteChildren {
   SellerProductsIndexRoute: typeof SellerProductsIndexRoute
   SellerShipmentsIndexRoute: typeof SellerShipmentsIndexRoute
   SellerOrdersIdIndexRoute: typeof SellerOrdersIdIndexRoute
+  SellerOrdersIdExportDocumentsRoute: typeof SellerOrdersIdExportDocumentsRoute
+  SellerOrdersIdExportSubmitRoute: typeof SellerOrdersIdExportSubmitRoute
   SellerOrdersIdExportIndexRoute: typeof SellerOrdersIdExportIndexRoute
 }
 
@@ -984,17 +986,17 @@ declare module '@tanstack/react-router' {
     }
     '/seller/orders/$id/export/documents': {
       id: '/seller/orders/$id/export/documents'
-      path: '/documents'
+      path: '/seller/orders/$id/export/documents'
       fullPath: '/seller/orders/$id/export/documents'
       preLoaderRoute: typeof SellerOrdersIdExportDocumentsRouteImport
-      parentRoute: typeof SellerOrdersIdExportRoute
+      parentRoute: typeof rootRouteImport
     }
     '/seller/orders/$id/export/submit': {
       id: '/seller/orders/$id/export/submit'
-      path: '/submit'
+      path: '/seller/orders/$id/export/submit'
       fullPath: '/seller/orders/$id/export/submit'
       preLoaderRoute: typeof SellerOrdersIdExportSubmitRouteImport
-      parentRoute: typeof SellerOrdersIdExportRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -1077,6 +1079,8 @@ const rootRouteChildren: RootRouteChildren = {
   SellerProductsIndexRoute: SellerProductsIndexRoute,
   SellerShipmentsIndexRoute: SellerShipmentsIndexRoute,
   SellerOrdersIdIndexRoute: SellerOrdersIdIndexRoute,
+  SellerOrdersIdExportDocumentsRoute: SellerOrdersIdExportDocumentsRoute,
+  SellerOrdersIdExportSubmitRoute: SellerOrdersIdExportSubmitRoute,
   SellerOrdersIdExportIndexRoute: SellerOrdersIdExportIndexRoute,
 }
 export const routeTree = rootRouteImport
